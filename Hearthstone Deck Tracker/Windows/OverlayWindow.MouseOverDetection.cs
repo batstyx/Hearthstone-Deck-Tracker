@@ -15,6 +15,7 @@ using Hearthstone_Deck_Tracker.Controls;
 using Hearthstone_Deck_Tracker.Utility;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Hearthstone_Deck_Tracker.Hearthstone;
 
 #endregion
 
@@ -39,6 +40,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 		private const int MaxHandSize = 10;
 		private const int MaxBoardSize = 7;
 		private bool _mouseIsOverLeaderboardIcon = false;
+	    private bool _mouseIsOverHeroOption = false;
 		private int _nextOpponentLeaderboardPosition = -1;
 		private int _currentlyHoveredIndex = -1;
 		private const int MouseLeaveEventDelay = 200;
@@ -69,7 +71,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 		{
 			get
 			{
-				return Width * ScreenRatio * .0005;
+				return Width * ScreenRatio * .00075;
 			}
 		}
 
@@ -261,6 +263,29 @@ namespace Hearthstone_Deck_Tracker.Windows
 			var turn = _game.GetTurnNumber();
 			_leaderboardDeadForText.ForEach(x => x.Visibility = Visibility.Collapsed);
 			_leaderboardDeadForTurnText.ForEach(x => x.Visibility = Visibility.Collapsed);
+			if(_game.GameEntity?.GetTag(GameTag.STEP) <= (int)Step.BEGIN_MULLIGAN)
+			{
+				var heroOptions = _game.Entities.Values.Where(x => x.IsHero && x.Info.OriginalZone == Zone.HAND && !BattlegroundsUtils.IsKelthuzadCardId(x.CardId) && !BattlegroundsUtils.IsShopCardId(x.CardId) && !BattlegroundsUtils.IsPlaceholderCardid(x.CardId)).Select(e => e.CardId).ToList();
+				if(!heroOptions.Any())
+					return;
+				var hoveredCardid = "";
+				for(var i = 0; i < _battlegroundsHeroOptions.Count; i++)
+				{
+					if(ElementContains(_battlegroundsHeroOptions[i], cursorPos))
+					{
+						if(heroOptions.Count == 2)
+						{
+							if(i == 1 || i == 2) {
+								hoveredCardid = heroOptions[i - 1];
+							}
+						}
+						else if(heroOptions.Count == 4)
+						{
+							hoveredCardid = heroOptions[i - 1];
+						}
+					}
+				}
+			}
 			if(turn == 0)
 				return;
 			for(var i = 0; i < _leaderboardIcons.Count; i++)
