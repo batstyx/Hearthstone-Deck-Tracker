@@ -10,7 +10,6 @@ namespace Hearthstone_Deck_Tracker
 	{
 		private static List<string> _uniqueDeadHeroes = new List<string>();
 		private static List<int> _deadTracker = new List<int>();
-		const string KelThuzadCardId = "KelThuzad";
 		const int NextOpponentCheckDelay = 500;
 
 		public static void ResetOpponentDeadForTracker()
@@ -30,7 +29,7 @@ namespace Hearthstone_Deck_Tracker
 			foreach(var hero in deadHeroes)
 			{
 				var id = BattlegroundsBoardState.GetCorrectBoardstateHeroId(hero.CardId);
-				if(!id.Contains(KelThuzadCardId) && !_uniqueDeadHeroes.Contains(id))
+				if(BattlegroundsUtils.IsKelthuzadCardId(id) && !_uniqueDeadHeroes.Contains(id))
 				{
 					_deadTracker.Add(0);
 					_uniqueDeadHeroes.Add(id);

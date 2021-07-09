@@ -8,6 +8,9 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 {
 	public static class BattlegroundsUtils
 	{
+		const string KelThuzadCardId = "KelThuzad";
+		const string ShopCardId = "BaconShopBob";
+		const string PlaceholderCardId = "BaconShop_HERO_PH";
 		private static readonly Dictionary<Guid, HashSet<Race>> _availableRacesCache = new Dictionary<Guid, HashSet<Race>>();
 
 		public static HashSet<Race> GetAvailableRaces(Guid? gameId)
@@ -34,5 +37,11 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 				return new HashSet<Race>(races.Cast<Race>());
 			}
 		}
+
+		public static bool IsKelthuzadCardId(string toCheck) => toCheck.Contains(KelThuzadCardId);
+
+		public static bool IsShopCardId(string toCheck) => toCheck.Contains(ShopCardId);
+
+		public static bool IsPlaceholderCardid(string toCheck) => toCheck.Contains(PlaceholderCardId);
 	}
 }
