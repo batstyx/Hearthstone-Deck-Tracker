@@ -50,6 +50,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 		private readonly List<Ellipse> _playerBoard = new List<Ellipse>();
 		private readonly List<Rectangle> _playerHand = new List<Rectangle>();
 		private readonly List<Rectangle> _leaderboardIcons = new List<Rectangle>();
+		private readonly List<Rectangle> _battlegroundsHeroOptions = new List<Rectangle>();
 		private readonly List<HearthstoneTextBlock> _leaderboardDeadForText = new List<HearthstoneTextBlock>();
 		private readonly List<HearthstoneTextBlock> _leaderboardDeadForTurnText = new List<HearthstoneTextBlock>();
 		private bool? _isFriendsListOpen;

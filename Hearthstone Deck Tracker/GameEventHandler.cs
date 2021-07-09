@@ -669,7 +669,7 @@ namespace Hearthstone_Deck_Tracker
 				{
 					try
 					{
-						DefaultDeckStats.Instance.GetDeckStats(_game.Player.Class).AddGameResult(_game.CurrentGameStats);
+						//DefaultDeckStats.Instance.GetDeckStats(_game.Player.Class).AddGameResult(_game.CurrentGameStats);
 						Log.Info($"Assigned current deck to default {_game.Player.Class} deck.");
 					}
 					catch(Exception ex)

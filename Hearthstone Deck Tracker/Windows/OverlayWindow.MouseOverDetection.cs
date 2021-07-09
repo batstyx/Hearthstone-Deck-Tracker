@@ -29,6 +29,8 @@ namespace Hearthstone_Deck_Tracker.Windows
 		public double MinionWidth => Width * 0.63 / 7 * ScreenRatio;
 		public double CardWidth => Height * 0.125;
 		public double CardHeight => Height * 0.189;
+		public double BattlegroundsHeroOptionHeight => Height * .144 * 4.5483;
+		public double BattlegroundsHeroOptionWidth => BattlegroundsHeroOptionHeight * .8989;
 		//Adjusts OpponentDeadFor textblocks left by this amount depending on what position they represent on the leaderboard.
 		const double LeftAdjust = .00075;
 		//Adjusts the OpponentDeadFor textblock of the next oponent by this to the right so it aligns correctly with the hero portrait.
@@ -49,6 +51,25 @@ namespace Hearthstone_Deck_Tracker.Windows
 			{
 				var side = Width * ScreenRatio * 0.0029;
 				return new Thickness(side, 0, side, 0);
+			}
+		}
+
+		public Thickness BattlegroundsHeroChoiceMargin
+		{
+			//Need to update with correct values obviously
+			get
+			{
+				var side = Width * ScreenRatio * 0.03;
+				return new Thickness(side, 0, side, 0);
+			}
+		}
+
+		//The hero choices are slightly off center to the right of the center of the screen. 
+		public double BattlegroundsHeroChoiceRightAdjust
+		{
+			get
+			{
+				return Width * ScreenRatio * .0005;
 			}
 		}
 
