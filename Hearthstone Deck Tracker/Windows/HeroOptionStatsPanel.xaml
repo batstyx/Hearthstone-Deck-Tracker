@@ -16,32 +16,41 @@
             <Setter Property="TextAlignment" Value="Center"/>
         </Style>
         <Style x:Key="LabelStyle" TargetType="TextBlock" BasedOn="{StaticResource FadedWhiteTextStyle}">
-            <Setter Property="FontSize" Value="8"/>
+            <Setter Property="FontSize" Value="16"/>
         </Style>
         <Style x:Key="ValueStyle" TargetType="TextBlock">
-            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontSize" Value="24"/>
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="FontWeight" Value="Bold"/>
         </Style>
     </UserControl.Resources>
-    <Border Background="#23272A" BorderBrush="#141617" BorderThickness="1" CornerRadius="3" Margin="0,5,0,0" Visibility="{Binding LinkOpponentDeckVisibility}" MaxWidth="352">
+    <Border Background="#23272A" BorderBrush="#141617" BorderThickness="1" CornerRadius="3" Visibility="{Binding LinkOpponentDeckVisibility}">
         <Grid>
-            <StackPanel Margin="5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="7*"/>
+                <ColumnDefinition Width="12*"/>
+            </Grid.ColumnDefinitions>
+            <Rectangle Fill="#23272A" Width="10" Height="10" Grid.ColumnSpan="2" Margin="169,-7,169,126.333">
+                <Rectangle.LayoutTransform>
+                    <RotateTransform Angle="45"/>
+                </Rectangle.LayoutTransform>
+            </Rectangle>
+            <StackPanel Margin="10 10 10 20" Grid.ColumnSpan="2">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <StackPanel Margin="10" HorizontalAlignment="Center">
-                        <TextBlock Text="Net MMR:" FontSize="8" Style="{StaticResource LabelStyle}"/>
+                    <StackPanel Margin="15" HorizontalAlignment="Center">
+                        <TextBlock Text="Net MMR:" Style="{StaticResource LabelStyle}"/>
                         <TextBlock Foreground="#89D088" Text="+1,270" Style="{StaticResource ValueStyle}"/>
                     </StackPanel>
-                    <StackPanel Margin="10" HorizontalAlignment="Center">
+                    <StackPanel Margin="15" HorizontalAlignment="Center">
                         <TextBlock Text="Avg Placement:" Style="{StaticResource LabelStyle}"/>
                         <TextBlock Foreground="#89D088" Text="2.00" Style="{StaticResource ValueStyle}"/>
                     </StackPanel>
-                    <StackPanel Margin="10" HorizontalAlignment="Center">
+                    <StackPanel Margin="15" HorizontalAlignment="Center">
                         <TextBlock Text="Games:" Style="{StaticResource LabelStyle}"/>
                         <TextBlock Foreground="White" Text="24" Style="{StaticResource ValueStyle}"/>
                     </StackPanel>
                 </StackPanel>
-                <TextBlock Text="Your personal data from the last 30 days" FontSize="6" Opacity=".5" Style="{StaticResource FadedWhiteTextStyle}"/>
+                <TextBlock Text="Your personal data from the last 30 days" FontSize="12" Opacity=".5" Style="{StaticResource FadedWhiteTextStyle}"/>
 
             </StackPanel>
         </Grid>

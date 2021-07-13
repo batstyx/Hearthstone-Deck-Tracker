@@ -24,12 +24,12 @@
                     <VisualBrush Stretch="Uniform" Visual="{StaticResource person_icon}" />
                 </Rectangle.Fill>
             </Rectangle>-->
-            <Rectangle Name="Tier7Icon" Width="16" Height="16" Margin="6,1.5,4,0">
+            <Rectangle Name="Tier7Icon" Width="36" Height="36" Margin="6,1.5,4,0">
             <Rectangle.Fill>
                 <VisualBrush Stretch="Uniform" Visual="{StaticResource tier7_icon}" />
             </Rectangle.Fill>
         </Rectangle>
-            <TextBlock Name="HeroOptionGlobalAveragePosition" Text="3.71" FontSize="17" FontWeight="Bold" Foreground="Wheat" TextAlignment="Justify" VerticalAlignment="Center"/>
+            <TextBlock Name="HeroOptionGlobalAveragePosition" Text="3.71" FontSize="37" FontWeight="Bold" Foreground="Wheat" TextAlignment="Justify" VerticalAlignment="Center"/>
     </StackPanel>
         
 </UserControl>
