@@ -265,6 +265,8 @@ namespace Hearthstone_Deck_Tracker.Windows
 			var turn = _game.GetTurnNumber();
 			_leaderboardDeadForText.ForEach(x => x.Visibility = Visibility.Collapsed);
 			_leaderboardDeadForTurnText.ForEach(x => x.Visibility = Visibility.Collapsed);
+			for(int i= 0; i < 4; i ++)
+				UpdateBattlegroundsHeroOptionStatsVisibility(i, Visibility.Collapsed);
 			if(_game.GameEntity?.GetTag(GameTag.STEP) <= (int)Step.BEGIN_MULLIGAN)
 			{
 				var heroOptions = _game.Entities.Values.Where(x => x.IsHero && x.Info.OriginalZone == Zone.HAND && !BattlegroundsUtils.IsKelthuzadCardId(x.CardId) && !BattlegroundsUtils.IsShopCardId(x.CardId) && !BattlegroundsUtils.IsPlaceholderCardid(x.CardId)).Select(e => e.CardId).ToList();
@@ -277,13 +279,16 @@ namespace Hearthstone_Deck_Tracker.Windows
 					{
 						if(heroOptions.Count == 2)
 						{
-							if(i == 1 || i == 2) {
+							if(i == 1 || i == 2)
+							{
 								hoveredCardid = heroOptions[i - 1];
+								UpdateBattlegroundsHeroOptionStatsVisibility(i, Visibility.Visible);
 							}
 						}
 						else if(heroOptions.Count == 4)
 						{
 							hoveredCardid = heroOptions[i - 1];
+							UpdateBattlegroundsHeroOptionStatsVisibility(i, Visibility.Visible);
 						}
 					}
 				}
@@ -349,6 +354,25 @@ namespace Hearthstone_Deck_Tracker.Windows
 				fadeBgsMinionsList = false;
 			BgsTopBar.Opacity = fadeBgsMinionsList ? 0.3 : 1;
 			BobsBuddyDisplay.Opacity = fadeBgsMinionsList ? 0.3 : 1;
+		}
+
+		private void UpdateBattlegroundsHeroOptionStatsVisibility(int index, Visibility value)
+		{
+			switch(index)
+			{
+				case 0:
+					BattlegroundsFirstHeroOptionStatsVisibility = value;
+					break;
+				case 1:
+					BattlegroundsSecondHeroOptionStatsVisibility = value;
+					break;
+				case 2:
+					BattlegroundsThirdHeroOptionStatsVisibility = value;
+					break;
+				case 3:
+					BattlegroundsFourthHeroOptionStatsVisibility = value;
+					break;
+			}
 		}
 
 		private async void ShowBobsBuddyPanelDelayed()

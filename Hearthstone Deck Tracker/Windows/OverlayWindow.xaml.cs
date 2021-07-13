@@ -201,6 +201,49 @@ namespace Hearthstone_Deck_Tracker.Windows
 		public double BattlegroundsTileHeight => Height * 0.69 / 8;
 		public double BattlegroundsTileWidth => BattlegroundsTileHeight;
 
+		private Visibility _battlegroundsFirstHeroOptionStatsVisibility;
+		public Visibility BattlegroundsFirstHeroOptionStatsVisibility
+		{
+			get => _battlegroundsFirstHeroOptionStatsVisibility;
+			set
+			{
+				_battlegroundsFirstHeroOptionStatsVisibility = value;
+				OnPropertyChanged();
+			}
+		}
+		private Visibility _battlegroundsSecondHeroOptionStatsVisibility;
+		public Visibility BattlegroundsSecondHeroOptionStatsVisibility
+		{
+			get => _battlegroundsSecondHeroOptionStatsVisibility;
+			set
+			{
+				_battlegroundsSecondHeroOptionStatsVisibility = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private Visibility _battlegroundsThirdHeroOptionStatsVisibility;
+		public Visibility BattlegroundsThirdHeroOptionStatsVisibility
+		{
+			get => _battlegroundsThirdHeroOptionStatsVisibility;
+			set
+			{
+				_battlegroundsThirdHeroOptionStatsVisibility = value;
+				OnPropertyChanged();
+			}
+		}
+
+		private Visibility _battlegroundsFourthHeroOptionStatsVisibility;
+		public Visibility BattlegroundsFourthHeroOptionStatsVisibility
+		{
+			get => _battlegroundsFourthHeroOptionStatsVisibility;
+			set
+			{
+				_battlegroundsFourthHeroOptionStatsVisibility = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public void ShowOverlay(bool enable)
 		{
 			if(enable)
