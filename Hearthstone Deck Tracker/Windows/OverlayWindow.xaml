@@ -113,23 +113,23 @@
                 <Grid Name="GridBattlegroundsHeroSelection" Width="{Binding BoardWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionStackPanelHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
                     <StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="{Binding BattlegroundsHeroChoicePanelMargin, RelativeSource={RelativeSource AncestorType=windows:CapturableOverlayWindow}}">
-                            <StackPanel>
-                                <Rectangle Stroke="Red" Name="HeroOption1" Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                            <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                                <Rectangle Stroke="Red" Name="HeroOption1" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
                                 <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats1" Margin="0 10 0 0" HorizontalAlignment="Center"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel1" Margin="0 15 0 0" Visibility="{Binding BattlegroundsFirstHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center" Width="400"/>
                             </StackPanel>
-                            <StackPanel>
-                                <Rectangle Stroke="Red" Name="HeroOption2" Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                            <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                                <Rectangle Stroke="Red" Name="HeroOption2" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
                                 <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats2" Margin="0 10 0 0" HorizontalAlignment="Center"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel2" Margin="0 15 0 0" Visibility="{Binding BattlegroundsSecondHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center"/>
                             </StackPanel>
-                            <StackPanel>
-                                <Rectangle Stroke="Red" Name="HeroOption3" Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                            <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                                <Rectangle Stroke="Red" Name="HeroOption3" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
                                 <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats3" Margin="0 10 0 0" HorizontalAlignment="Center"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel3" Margin="0 15 0 0" Visibility="{Binding BattlegroundsThirdHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center"/>
                             </StackPanel>
-                            <StackPanel>
-                                <Rectangle Stroke="Red" Name="HeroOption4" Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                            <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                                <Rectangle Stroke="Red" Name="HeroOption4" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
                                 <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats4" Margin="0 10 0 0" HorizontalAlignment="Center"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel4" Margin="0 15 0 0" Visibility="{Binding BattlegroundsFourthHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center" Width="400"/>
                             </StackPanel>

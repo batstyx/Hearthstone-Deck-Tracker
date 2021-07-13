@@ -62,7 +62,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 			//Need to update with correct values obviously
 			get
 			{
-				var side = Width * ScreenRatio * 0.003;
+				var side = Width * ScreenRatio * 0.05;
 				return new Thickness(side, 0, 0, 0);
 			}
 		}
@@ -72,7 +72,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 		{
 			get
 			{
-				var rightMargin = Width * ScreenRatio * .00095;
+				var rightMargin = Width * ScreenRatio * .00055;
 				return new Thickness(rightMargin, 0, 0, 0);
 			}
 		}

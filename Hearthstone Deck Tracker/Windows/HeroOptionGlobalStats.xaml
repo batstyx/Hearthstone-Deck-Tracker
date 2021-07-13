@@ -24,7 +24,7 @@
                     <VisualBrush Stretch="Uniform" Visual="{StaticResource person_icon}" />
                 </Rectangle.Fill>
             </Rectangle>-->
-            <Rectangle Name="Tier7Icon" Width="36" Height="36" Margin="6,1.5,4,0">
+            <Rectangle Name="Tier7Icon" Width="36" Height="36" Margin="6,4,4,0">
             <Rectangle.Fill>
                 <VisualBrush Stretch="Uniform" Visual="{StaticResource tier7_icon}" />
             </Rectangle.Fill>
