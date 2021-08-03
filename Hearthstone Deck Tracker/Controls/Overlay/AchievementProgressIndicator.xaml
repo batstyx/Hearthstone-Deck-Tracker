@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="Hearthstone_Deck_Tracker.Controls.Overlay.AchievementProgressIndicator"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             xmlns:lex="http://wpflocalizeextension.codeplex.com" xmlns:hearthstone_deck_tracker="clr-namespace:Hearthstone_Deck_Tracker"
+             lex:LocalizeDictionary.DesignCulture="en"
+             lex:ResxLocalizationProvider.DefaultAssembly="HearthstoneDeckTracker"
+             lex:ResxLocalizationProvider.DefaultDictionary="Strings"
+             mc:Ignorable="d">
+    <Grid>
+        <!--<Image Source="{StaticResource AchievementInProgressIcon}" RenderOptions.BitmapScalingMode="Fant" Height="30" Visibility="{Binding InProgressVisibility}"/>
+        <Image Source="{StaticResource AchievementEarnedIcon}" RenderOptions.BitmapScalingMode="Fant" Height="30" Visibility="{Binding EarnedVisibility}"/>-->
+        <hearthstone_deck_tracker:HearthstoneTextBlock Text="2/3" FontWeight="Bold" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    </Grid>
+        
+</UserControl>

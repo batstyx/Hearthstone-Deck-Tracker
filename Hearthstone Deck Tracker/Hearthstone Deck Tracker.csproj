@@ -269,8 +269,14 @@
     <Compile Include="Controls\OAuthLogin.xaml.cs">
       <DependentUpon>OAuthLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Overlay\AchievementTextPanel.xaml.cs">
+      <DependentUpon>AchievementTextPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Overlay\BattlegroundsCardsGroup.xaml.cs">
       <DependentUpon>BattlegroundsCardsGroup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Overlay\AchievementProgressIndicator.xaml.cs">
+      <DependentUpon>AchievementProgressIndicator.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Overlay\LinkOpponentDeckPanel.xaml.cs">
       <DependentUpon>LinkOpponentDeckPanel.xaml</DependentUpon>
@@ -1046,9 +1052,17 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Controls\Overlay\AchievementTextPanel.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Controls\Overlay\BattlegroundsCardsGroup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Overlay\AchievementProgressIndicator.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Controls\Overlay\LinkOpponentDeckPanel.xaml">
       <Generator>MSBuild:Compile</Generator>
