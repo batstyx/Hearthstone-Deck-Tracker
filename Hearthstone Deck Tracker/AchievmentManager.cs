@@ -1,6 +1,8 @@
 ﻿using HearthDb.Enums;
 using HearthMirror;
+using Hearthstone_Deck_Tracker.Controls.Overlay;
 using Hearthstone_Deck_Tracker.Hearthstone;
+using Hearthstone_Deck_Tracker.Utility.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,6 +49,17 @@ namespace Hearthstone_Deck_Tracker
 			var xwefa = 2332;
 		}
 
+		private static List<AchievementSequence> GetSequencesFor(string name)
+		{
+			var sequences = HeroToAchievementsTable.FirstOrDefault(x => x.Key == name).Value;
+
+			if(sequences == null)
+				sequences = HeroToAchievementsTable.FirstOrDefault(x => name.Contains(x.Key)).Value;
+			if(sequences == null)
+				sequences = HeroToAchievementsTable.FirstOrDefault(x => x.Key.Contains(name)).Value;
+			return sequences;
+		}
+
 		//Called at the start of BG matches to update the completion VALUES of the achievements
 		public static async void UpdateHeroAchievementValues()
 		{
@@ -57,7 +70,16 @@ namespace Hearthstone_Deck_Tracker
 					return;
 			}
 
-			await Task.Delay(2000);
+			Core.Overlay.Hero1PrimaryAchievementIndicator.Reset();
+			Core.Overlay.Hero1SecondaryAchievmeentIndicator.Reset();
+			Core.Overlay.Hero2PrimaryAchievementIndicator.Reset();
+			Core.Overlay.Hero2SecondaryAchievmeentIndicator.Reset();
+			Core.Overlay.Hero3PrimaryAchievementIndicator.Reset();
+			Core.Overlay.Hero3SecondaryAchievmeentIndicator.Reset();
+			Core.Overlay.Hero4PrimaryAchievementIndicator.Reset();
+			Core.Overlay.Hero4SecondaryAchievmeentIndicator.Reset();
+
+			await Task.Delay(4000);
 
 			var heroOptions = Reflection.GetBattlegroundsHeroOptions();
 			var achievementCompletionInfos = Reflection.GetAchievementCompletionInfos();
@@ -83,19 +105,14 @@ namespace Hearthstone_Deck_Tracker
 			var temp = new List<AchievementSequence>();
 			foreach(var option in CurrentBattlegroundsHeroOptions)
 			{
-				var sequences = HeroToAchievementsTable.FirstOrDefault(x => x.Key == option.Name);
-			
-				if(sequences.Value == null)
-					sequences = HeroToAchievementsTable.FirstOrDefault(x => option.Name.Contains(x.Key));
-				if(sequences.Value == null)
-					sequences = HeroToAchievementsTable.FirstOrDefault(x => x.Key.Contains(option.Name));
-				if(sequences.Value.Count > 1)
+				var sequences = GetSequencesFor(option.Name);
+				if(sequences.Count > 1)
 				{
 					var fawefw = "wfawe";
 				}
 				try
 				{
-					foreach(var sequence in sequences.Value)
+					foreach(var sequence in sequences)
 					{
 						for(int i = 0; i < sequence.Achievements.Count; i++)
 						{
@@ -115,11 +132,39 @@ namespace Hearthstone_Deck_Tracker
 				}
 				catch(Exception e)
 				{
-
+					var error = e;
 				}
 			}
 			var xwef = 45;
 
+			
+
+			List<(AchievementProgressIndicator, AchievementProgressIndicator)> toUpdate = new List<(AchievementProgressIndicator, AchievementProgressIndicator)>()
+			{(Core.Overlay.Hero2PrimaryAchievementIndicator, Core.Overlay.Hero2SecondaryAchievmeentIndicator),
+			(Core.Overlay.Hero3PrimaryAchievementIndicator, Core.Overlay.Hero3SecondaryAchievmeentIndicator) };
+			if(CurrentBattlegroundsHeroOptions.Count == 4) {
+				toUpdate.Insert(0, (Core.Overlay.Hero1PrimaryAchievementIndicator, Core.Overlay.Hero1SecondaryAchievmeentIndicator));
+				toUpdate.Add((Core.Overlay.Hero4PrimaryAchievementIndicator, Core.Overlay.Hero4SecondaryAchievmeentIndicator));
+			}
+
+			for(int i = 0; i < CurrentBattlegroundsHeroOptions.Count; i++)
+			{
+				//will the sequence itself not be null if nothing is found? hmm
+				var optionSequences = GetSequencesFor(CurrentBattlegroundsHeroOptions[i].Name);
+				if(optionSequences == null)
+					continue;
+				//if(optionSequences.Count > 2) should add logging like this everywhere maybe
+				//{
+				//	Log.Debug($"Found achievement sequence with count {optionSequences.Count} for hero {CurrentBattlegroundsHeroOptions[i].Name}");
+				//}
+				var indicator = toUpdate[i];
+				if(optionSequences.Count >= 1)
+				{
+					toUpdate[i].Item1.Update(optionSequences[0]);
+					if(optionSequences.Count == 2)
+						toUpdate[i].Item2.Update(optionSequences[1]);
+				}
+			}
 		}
 	}
 }

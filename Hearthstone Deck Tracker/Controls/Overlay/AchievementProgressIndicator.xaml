@@ -10,9 +10,10 @@
              lex:ResxLocalizationProvider.DefaultDictionary="Strings"
              mc:Ignorable="d">
     <Grid>
-        <Image Source="{StaticResource AchievementInProgressIcon}" RenderOptions.BitmapScalingMode="Fant" Height="30" Visibility="{Binding InProgressVisibility}"/>
-        <Image Source="{StaticResource AchievementEarnedIcon}" RenderOptions.BitmapScalingMode="Fant" Height="30" Visibility="{Binding EarnedVisibility}"/>
-        <hearthstone_deck_tracker:HearthstoneTextBlock Text="2/3" FontWeight="Bold" FontSize="9" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        
+        <Image Source="{StaticResource AchievementInProgressIcon}" RenderOptions.BitmapScalingMode="Fant" Height="80" Visibility="{Binding InProgressVisibility}"/>
+        <Image Source="{StaticResource AchievementEarnedIcon}" RenderOptions.BitmapScalingMode="Fant" Height="80" Visibility="{Binding EarnedVisibility}"/>
+        <hearthstone_deck_tracker:HearthstoneTextBlock Text="{Binding Progress}" FontWeight="Bold" FontSize="21" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="23,26,22,26" Width="35"/>
     </Grid>
         
 </UserControl>

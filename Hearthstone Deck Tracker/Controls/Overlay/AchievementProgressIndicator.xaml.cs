@@ -42,11 +42,48 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 				OnPropertyChanged();
 			}
 		}
+
+		private String _progress;
+		public String Progress
+		{
+			get => _progress;
+			set
+			{
+				_progress = value;
+				OnPropertyChanged();
+			}
+		}
+
 		public event PropertyChangedEventHandler PropertyChanged;
 		[NotifyPropertyChangedInvocator]
 		protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
 		{
 			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 		}
+
+		public void Reset()
+		{
+			Progress = "";
+			InProgressVisibility = Visibility.Collapsed;
+			EarnedVisibility = Visibility.Collapsed;
+		}
+
+		public void Update(AchievementSequence sequence)
+		{
+			var completedCount = sequence.Achievements.Where(x => x.IsComplete).Count();
+			Progress = "";
+			if(completedCount == sequence.Achievements.Count)
+			{
+				InProgressVisibility = Visibility.Collapsed;
+				EarnedVisibility = Visibility.Visible;
+			}
+			else
+			{
+				InProgressVisibility = Visibility.Visible;
+				EarnedVisibility = Visibility.Collapsed;
+				Progress = $"{completedCount}/{sequence.Achievements.Count}";
+			}
+		}
+
 	}
 }

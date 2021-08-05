@@ -115,22 +115,30 @@
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="{Binding BattlegroundsHeroChoicePanelMargin, RelativeSource={RelativeSource AncestorType=windows:CapturableOverlayWindow}}">
                             <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
                                 <Rectangle Stroke="Red" Name="HeroOption1" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
-                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats1" Margin="0 10 0 0" HorizontalAlignment="Center"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero1SecondaryAchievmeentIndicator" HorizontalAlignment="Left" Margin="-38 -160 0 0"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero1PrimaryAchievementIndicator" HorizontalAlignment="Left" Margin="-38 -40 0 0"/>
+                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats1" Margin="0 10 0 0" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel1" Margin="0 15 0 0" Visibility="{Binding BattlegroundsFirstHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center" Width="400"/>
                             </StackPanel>
                             <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
                                 <Rectangle Stroke="Red" Name="HeroOption2" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
-                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats2" Margin="0 10 0 0" HorizontalAlignment="Center"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero2SecondaryAchievmeentIndicator" HorizontalAlignment="Left" Margin="-38 -160 0 0"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero2PrimaryAchievementIndicator" HorizontalAlignment="Left" Margin="-38 -40 0 0"/>
+                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats2" Margin="0 10 0 0" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel2" Margin="0 15 0 0" Visibility="{Binding BattlegroundsSecondHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
                                 <Rectangle Stroke="Red" Name="HeroOption3" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
-                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats3" Margin="0 10 0 0" HorizontalAlignment="Center"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero3SecondaryAchievmeentIndicator" HorizontalAlignment="Left" Margin="-38 -160 0 0"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero3PrimaryAchievementIndicator" HorizontalAlignment="Left" Margin="-38 -40 0 0"/>
+                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats3" Margin="0 10 0 0" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel3" Margin="0 15 0 0" Visibility="{Binding BattlegroundsThirdHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center"/>
                             </StackPanel>
                             <StackPanel Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
                                 <Rectangle Stroke="Red" Name="HeroOption4" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
-                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats4" Margin="0 10 0 0" HorizontalAlignment="Center"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero4SecondaryAchievmeentIndicator" HorizontalAlignment="Left" Margin="-38 -160 0 0"/>
+                                <overlay:AchievementProgressIndicator x:Name="Hero4PrimaryAchievementIndicator" HorizontalAlignment="Left" Margin="-38 -40 0 0"/>
+                                <windows:HeroOptionGlobalStats x:Name="HeroOptionGlobalStats4" Margin="0 10 0 0" HorizontalAlignment="Center" Visibility="Collapsed"/>
                                 <windows:HeroOptionStatsPanel x:Name="HeroOptionStatsPanel4" Margin="0 15 0 0" Visibility="{Binding BattlegroundsFourthHeroOptionStatsVisibility, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" HorizontalAlignment="Center" Width="400"/>
                             </StackPanel>
                         </StackPanel>
