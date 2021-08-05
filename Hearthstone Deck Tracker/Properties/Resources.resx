@@ -172,4 +172,10 @@
   <data name="xp_scroll_item" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\xp_scroll_item.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="achievement_earned" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\achievement_earned.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="achievement_in_progress" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\achievement_in_progress.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
 </root>

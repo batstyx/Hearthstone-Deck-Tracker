@@ -1564,6 +1564,8 @@
     </Compile>
     <Compile Include="Utility\Updating\Updater.Squirrel.cs" />
     <Compile Include="Utility\Updating\Updater.Default.cs" />
+    <Resource Include="Resources\achievement_earned.png" />
+    <Resource Include="Resources\achievement_in_progress.png" />
     <Resource Include="Resources\xp_empty_bar.png" />
     <Resource Include="Resources\xp_scroll_item.png" />
     <Resource Include="Resources\xp_gem.png" />
