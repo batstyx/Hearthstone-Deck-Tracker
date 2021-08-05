@@ -353,12 +353,15 @@
     <Compile Include="HsReplay\HSReplayNetOAuth.cs" />
     <Compile Include="HsReplay\Data\OAuthData.cs" />
     <Compile Include="HsReplay\HSReplayNetHelper.cs" />
+    <Compile Include="AchievmentManager.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="OpponentDeadForTracker.cs" />
+    <Compile Include="Utility\AchievementData.cs" />
+    <Compile Include="Utility\AchievementSequence.cs" />
     <Compile Include="Utility\Assets\AssetDownloader.cs" />
     <Compile Include="Utility\Assets\AssetDownloaders.cs" />
     <Compile Include="Utility\Extensions\OverlayExtensions.cs" />
