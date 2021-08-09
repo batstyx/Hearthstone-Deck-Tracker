@@ -1,0 +1,35 @@
+﻿<UserControl x:Class="Hearthstone_Deck_Tracker.Controls.Overlay.BattlegroundsHeroOverlay"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Hearthstone_Deck_Tracker.Controls.Overlay" xmlns:windows="clr-namespace:Hearthstone_Deck_Tracker.Windows" xmlns:utility="clr-namespace:Hearthstone_Deck_Tracker.Utility"
+             mc:Ignorable="d" 
+             d:DesignHeight="10000" d:DesignWidth="10000">
+    <Grid Name="GridBattlegroundsHeroSelection" Width="{Binding BoardWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionStackPanelHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="{Binding BattlegroundsHeroChoicePanelMargin, RelativeSource={RelativeSource AncestorType=windows:CapturableOverlayWindow}}">
+                <Grid Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                    <Rectangle Stroke="Red" Name="HeroOption1" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                    <local:HeroAchievmenets/>
+                    <local:BattlegroundsHeroStats/>
+                </Grid>
+                <Grid Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                    <Rectangle Stroke="Red" Name="HeroOption2" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                    <local:HeroAchievmenets/>
+                    <local:BattlegroundsHeroStats/>
+                </Grid>
+                <Grid Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                    <Rectangle Stroke="Red" Name="HeroOption3" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                    <local:HeroAchievmenets/>
+                    <local:BattlegroundsHeroStats/>
+                </Grid>
+                <Grid Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
+                    <Rectangle Stroke="Red" Name="HeroOption4" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+                    <local:HeroAchievmenets/>
+                    <local:BattlegroundsHeroStats/>
+                </Grid>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</UserControl>

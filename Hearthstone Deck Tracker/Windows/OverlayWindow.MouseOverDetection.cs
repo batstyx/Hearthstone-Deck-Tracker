@@ -30,7 +30,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 		public double MinionWidth => Width * 0.63 / 7 * ScreenRatio;
 		public double CardWidth => Height * 0.125;
 		public double CardHeight => Height * 0.189;
-		public double BattlegroundsHeroOptionStackPanelHeight => Height * .244 * 4.5483;
+		public double BattlegroundsHeroOptionStackPanelHeight => Height * .294* 4.5483;
 		public double BattlegroundsHeroOptionHeight => Height * .144 * 4.5483;
 		public double BattlegroundsHeroOptionWidth => BattlegroundsHeroOptionHeight * .8989;
 		//Adjusts OpponentDeadFor textblocks left by this amount depending on what position they represent on the leaderboard.
@@ -273,25 +273,25 @@ namespace Hearthstone_Deck_Tracker.Windows
 				if(!heroOptions.Any())
 					return;
 				var hoveredCardid = "";
-				for(var i = 0; i < _battlegroundsHeroOptions.Count; i++)
-				{
-					if(ElementContains(_battlegroundsHeroOptions[i], cursorPos))
-					{
-						if(heroOptions.Count == 2)
-						{
-							if(i == 1 || i == 2)
-							{
-								hoveredCardid = heroOptions[i - 1];
-								UpdateBattlegroundsHeroOptionStatsVisibility(i, Visibility.Visible);
-							}
-						}
-						else if(heroOptions.Count == 4)
-						{
-							hoveredCardid = heroOptions[i - 1];
-							UpdateBattlegroundsHeroOptionStatsVisibility(i, Visibility.Visible);
-						}
-					}
-				}
+			//	for(var i = 0; i < _battlegroundsHeroOptions.Count; i++)
+			//	{
+			//		if(ElementContains(_battlegroundsHeroOptions[i], cursorPos))
+			//		{
+			//			if(heroOptions.Count == 2)
+			//			{
+			//				if(i == 1 || i == 2)
+			//				{
+			//					hoveredCardid = heroOptions[i - 1];
+			//					UpdateBattlegroundsHeroOptionStatsVisibility(i, Visibility.Visible);
+			//				}
+			//			}
+			//			else if(heroOptions.Count == 4)
+			//			{
+			//				hoveredCardid = heroOptions[i - 1];
+			//				UpdateBattlegroundsHeroOptionStatsVisibility(i, Visibility.Visible);
+			//			}
+			//		}
+			//	}
 			}
 			if(turn == 0)
 				return;
@@ -422,6 +422,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 			var cursorPos = GetCursorPos();
 			if(cursorPos.X == -1 && cursorPos.Y == -1)
 				return;
+			
 			var clickableHoveredIndex = _clickableElements.FindIndex(e => ElementContains(e, cursorPos, AutoScaling));
 			SetClickthrough(clickableHoveredIndex < 0);
 			var hoverableHoveredIndex = _hoverableElements.FindIndex(e => ElementContains(e.element, cursorPos, AutoScaling));

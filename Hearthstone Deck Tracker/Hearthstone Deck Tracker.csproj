@@ -278,6 +278,15 @@
     <Compile Include="Controls\Overlay\AchievementProgressIndicator.xaml.cs">
       <DependentUpon>AchievementProgressIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Overlay\BattlegroundsHeroOverlay.xaml.cs">
+      <DependentUpon>BattlegroundsHeroOverlay.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Overlay\BattlegroundsHeroStats.xaml.cs">
+      <DependentUpon>BattlegroundsHeroStats.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\Overlay\HeroAchievmenets.xaml.cs">
+      <DependentUpon>HeroAchievmenets.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Overlay\LinkOpponentDeckPanel.xaml.cs">
       <DependentUpon>LinkOpponentDeckPanel.xaml</DependentUpon>
     </Compile>
@@ -1066,6 +1075,18 @@
     <Page Include="Controls\Overlay\AchievementProgressIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Overlay\BattlegroundsHeroOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Overlay\BattlegroundsHeroStats.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Controls\Overlay\HeroAchievmenets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Overlay\LinkOpponentDeckPanel.xaml">
       <Generator>MSBuild:Compile</Generator>

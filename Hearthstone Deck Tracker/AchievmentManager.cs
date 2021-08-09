@@ -17,36 +17,67 @@ namespace Hearthstone_Deck_Tracker
 		public static List<HearthMirror.Objects.AchievementSectionInfo> AchievementSectionInfos = new List<HearthMirror.Objects.AchievementSectionInfo>();
 		public static Dictionary<string, List<AchievementSequence>> HeroToAchievementsTable = new Dictionary<string, List<AchievementSequence>>();
 		public static Dictionary<int, HearthMirror.Objects.AchievementCompletionInfo> idCompletionTable = new Dictionary<int, HearthMirror.Objects.AchievementCompletionInfo>();
+		static bool inProgress = false;
 
 		//Called at the start of an hdt instance or an hs instance to ensure we know the exact DETAILS of hero achievement descriptions
-		public static void GetAchievementInfo()
+		public static async void GetAchievementInfo()
 		{
-			AchievementInfos = Reflection.GetAchievementInfos();
-			AchievementSectionInfos = Reflection.GetAchievementSectionInfos();
-			if(AchievementInfos == null || AchievementSectionInfos == null)
+			if(AchievementInfos != null && AchievementInfos.Count > 0 || inProgress)
 				return;
-			foreach(var section in AchievementSectionInfos)
+			inProgress = true;
+			try
 			{
-				var achievements = AchievementInfos.Where(x => x.AchievementSectionId == section.Id).ToList();
-				var sequences = new List<AchievementSequence>();
-				if(achievements.Any())
+				for(int i = 0; i < 10; i++)
 				{
-					var sequence = new AchievementSequence();
-					for(int i = 0; i < achievements.Count; i++)
+					AchievementInfos = Reflection.GetAchievementInfos();
+					if(AchievementInfos.Count == 0)
 					{
-						var currentAchievement = achievements[i];
-						sequence.Achievements.Add(new AchievementData(currentAchievement));
-						if(achievements.Count > i + 1 && achievements[i + 1].Id != currentAchievement.NextTierId)
-						{
-							sequences.Add(sequence);
-							sequence = new AchievementSequence();
-						}
+						await Task.Delay(1000);
 					}
-					sequences.Add(sequence);
+					else
+					{
+						AchievementSectionInfos = Reflection.GetAchievementSectionInfos();
+						break;
+					}
 				}
-				HeroToAchievementsTable[section.Name] = new List<AchievementSequence>(sequences);
+				if(AchievementInfos == null || AchievementSectionInfos == null)
+				{
+					inProgress = false;
+					return;
+				}
+				foreach(var section in AchievementSectionInfos)
+				{
+					var achievements = AchievementInfos.Where(x => x.AchievementSectionId == section.Id).ToList();
+					var sequences = new List<AchievementSequence>();
+					if(achievements.Any())
+					{
+						var sequence = new AchievementSequence();
+						for(int i = 0; i < achievements.Count; i++)
+						{
+							var currentAchievement = achievements[i];
+							sequence.Achievements.Add(new AchievementData(currentAchievement));
+							if(achievements.Count > i + 1 && achievements[i + 1].Id != currentAchievement.NextTierId)
+							{
+								sequences.Add(sequence);
+								sequence = new AchievementSequence();
+							}
+						}
+						sequences.Add(sequence);
+					}
+					HeroToAchievementsTable[section.Name] = new List<AchievementSequence>(sequences);
+				}
+				inProgress = false;
 			}
-			var xwefa = 2332;
+			catch(Exception e)
+			{
+				var error = e;
+			}
+			finally{
+				AchievementInfos.Clear();
+				AchievementSectionInfos.Clear();
+				HeroToAchievementsTable.Clear();
+				inProgress = false;
+			}
 		}
 
 		private static List<AchievementSequence> GetSequencesFor(string name)
@@ -70,14 +101,14 @@ namespace Hearthstone_Deck_Tracker
 					return;
 			}
 
-			Core.Overlay.Hero1PrimaryAchievementIndicator.Reset();
-			Core.Overlay.Hero1SecondaryAchievmeentIndicator.Reset();
-			Core.Overlay.Hero2PrimaryAchievementIndicator.Reset();
-			Core.Overlay.Hero2SecondaryAchievmeentIndicator.Reset();
-			Core.Overlay.Hero3PrimaryAchievementIndicator.Reset();
-			Core.Overlay.Hero3SecondaryAchievmeentIndicator.Reset();
-			Core.Overlay.Hero4PrimaryAchievementIndicator.Reset();
-			Core.Overlay.Hero4SecondaryAchievmeentIndicator.Reset();
+			//Core.Overlay.Hero1PrimaryAchievementIndicator.Reset();
+			//Core.Overlay.Hero1SecondaryAchievmeentIndicator.Reset();
+			//Core.Overlay.Hero2PrimaryAchievementIndicator.Reset();
+			//Core.Overlay.Hero2SecondaryAchievmeentIndicator.Reset();
+			//Core.Overlay.Hero3PrimaryAchievementIndicator.Reset();
+			//Core.Overlay.Hero3SecondaryAchievmeentIndicator.Reset();
+			//Core.Overlay.Hero4PrimaryAchievementIndicator.Reset();
+			//Core.Overlay.Hero4SecondaryAchievmeentIndicator.Reset();
 
 			await Task.Delay(4000);
 
@@ -139,32 +170,32 @@ namespace Hearthstone_Deck_Tracker
 
 			
 
-			List<(AchievementProgressIndicator, AchievementProgressIndicator)> toUpdate = new List<(AchievementProgressIndicator, AchievementProgressIndicator)>()
-			{(Core.Overlay.Hero2PrimaryAchievementIndicator, Core.Overlay.Hero2SecondaryAchievmeentIndicator),
-			(Core.Overlay.Hero3PrimaryAchievementIndicator, Core.Overlay.Hero3SecondaryAchievmeentIndicator) };
-			if(CurrentBattlegroundsHeroOptions.Count == 4) {
-				toUpdate.Insert(0, (Core.Overlay.Hero1PrimaryAchievementIndicator, Core.Overlay.Hero1SecondaryAchievmeentIndicator));
-				toUpdate.Add((Core.Overlay.Hero4PrimaryAchievementIndicator, Core.Overlay.Hero4SecondaryAchievmeentIndicator));
-			}
+			//List<(AchievementProgressIndicator, AchievementProgressIndicator)> toUpdate = new List<(AchievementProgressIndicator, AchievementProgressIndicator)>()
+			//{(Core.Overlay.Hero2PrimaryAchievementIndicator, Core.Overlay.Hero2SecondaryAchievmeentIndicator),
+			//(Core.Overlay.Hero3PrimaryAchievementIndicator, Core.Overlay.Hero3SecondaryAchievmeentIndicator) };
+			//if(CurrentBattlegroundsHeroOptions.Count == 4) {
+			//	toUpdate.Insert(0, (Core.Overlay.Hero1PrimaryAchievementIndicator, Core.Overlay.Hero1SecondaryAchievmeentIndicator));
+			//	toUpdate.Add((Core.Overlay.Hero4PrimaryAchievementIndicator, Core.Overlay.Hero4SecondaryAchievmeentIndicator));
+			//}
 
-			for(int i = 0; i < CurrentBattlegroundsHeroOptions.Count; i++)
-			{
-				//will the sequence itself not be null if nothing is found? hmm
-				var optionSequences = GetSequencesFor(CurrentBattlegroundsHeroOptions[i].Name);
-				if(optionSequences == null)
-					continue;
-				//if(optionSequences.Count > 2) should add logging like this everywhere maybe
-				//{
-				//	Log.Debug($"Found achievement sequence with count {optionSequences.Count} for hero {CurrentBattlegroundsHeroOptions[i].Name}");
-				//}
-				var indicator = toUpdate[i];
-				if(optionSequences.Count >= 1)
-				{
-					toUpdate[i].Item1.Update(optionSequences[0]);
-					if(optionSequences.Count == 2)
-						toUpdate[i].Item2.Update(optionSequences[1]);
-				}
-			}
+			//for(int i = 0; i < CurrentBattlegroundsHeroOptions.Count; i++)
+			//{
+			//	//will the sequence itself not be null if nothing is found? hmm
+			//	var optionSequences = GetSequencesFor(CurrentBattlegroundsHeroOptions[i].Name);
+			//	if(optionSequences == null)
+			//		continue;
+			//	//if(optionSequences.Count > 2) should add logging like this everywhere maybe
+			//	//{
+			//	//	Log.Debug($"Found achievement sequence with count {optionSequences.Count} for hero {CurrentBattlegroundsHeroOptions[i].Name}");
+			//	//}
+			//	var indicator = toUpdate[i];
+			//	if(optionSequences.Count >= 1)
+			//	{
+			//		toUpdate[i].Item1.Update(optionSequences[0]);
+			//		if(optionSequences.Count == 2)
+			//			toUpdate[i].Item2.Update(optionSequences[1]);
+			//	}
+			//}
 		}
 	}
 }

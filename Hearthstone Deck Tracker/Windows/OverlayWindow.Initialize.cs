@@ -78,13 +78,13 @@ namespace Hearthstone_Deck_Tracker.Windows
 				BattlegroundsTurnText6,
 				BattlegroundsTurnText7
 			});
-			_battlegroundsHeroOptions.AddRange(new[]
-			{
-				HeroOption1,
-				HeroOption2,
-				HeroOption3,
-				HeroOption4
-			});
+			//_battlegroundsHeroOptions.AddRange(new[]
+			//{
+			//	HeroOption1,
+			//	HeroOption2,
+			//	HeroOption3,
+			//	HeroOption4
+			//});
 
 			const double tWidth = 1024.0;
 			const double tHeight = 768.0;

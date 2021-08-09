@@ -163,8 +163,6 @@ namespace Hearthstone_Deck_Tracker
 
 			AssetDownloaders.SetupAssetDownloaders();
 
-			AchievementManager.GetAchievementInfo();
-
 			Initialized = true;
 
 			Influx.OnAppStart(

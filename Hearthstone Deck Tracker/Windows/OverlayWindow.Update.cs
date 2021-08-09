@@ -354,7 +354,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 			Canvas.SetLeft(IconBoardAttackOpponent, Helper.GetScaledXPos(Config.Instance.AttackIconOpponentHorizontalPosition / 100, (int)Width, ScreenRatio));
 			Canvas.SetTop(GridOpponentBoard, Height / 2 - GridOpponentBoard.ActualHeight - Height * 0.045);
 			Canvas.SetTop(GridPlayerBoard, Height / 2 - Height * 0.03);
-			Canvas.SetTop(GridBattlegroundsHeroSelection, Height / 2 - GridBattlegroundsHeroSelection.ActualHeight/2 - Height * .04);
+			//Canvas.SetTop(GridBattlegroundsHeroSelection, Height / 2 - GridBattlegroundsHeroSelection.ActualHeight/2 - Height * .04);
 
 			Canvas.SetLeft(LinkOpponentDeckDisplay, Width * Config.Instance.OpponentDeckLeft / 100);
 

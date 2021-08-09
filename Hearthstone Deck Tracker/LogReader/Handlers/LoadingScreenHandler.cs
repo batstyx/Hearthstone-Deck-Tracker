@@ -57,6 +57,9 @@ namespace Hearthstone_Deck_Tracker.LogReader.Handlers
 							CheckMirrorStatus();
 				}
 
+				if(game.CurrentMode > Mode.LOGIN)
+					AchievementManager.GetAchievementInfo();
+
 				if(ShowExperienceDuringMode.Contains(game.CurrentMode))
 					Core.Overlay.ShowExperienceCounter();
 				else
