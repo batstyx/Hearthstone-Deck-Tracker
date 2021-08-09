@@ -10,11 +10,11 @@
     <Grid>
     <!--This has a dynamic list of the achievement descriptors on top of a dynamic list of the hero achievmeent indicators-->
         <ItemsControl x:Name="AchievementIndicators"/>
-        <TextBlock Width="100" Height="200" Text="fuck">
+        <!--<TextBlock Width="100" Height="200" Text="fuck">
             <TextBlock.ToolTip>
                 <local:AchievementTextPanel/>
-                <!--won't work unless it's added to clickable elements which i only do temporarly atm-->
+                --><!--won't work unless it's added to clickable elements which i only do temporarly atm--><!--
             </TextBlock.ToolTip>
-        </TextBlock>
+        </TextBlock>-->
     </Grid>
 </UserControl>

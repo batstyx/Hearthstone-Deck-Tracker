@@ -278,6 +278,9 @@
     <Compile Include="Controls\Overlay\AchievementProgressIndicator.xaml.cs">
       <DependentUpon>AchievementProgressIndicator.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Overlay\BattlegroundsHeroesOverlay.xaml.cs">
+      <DependentUpon>BattlegroundsHeroesOverlay.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Controls\Overlay\BattlegroundsHeroOverlay.xaml.cs">
       <DependentUpon>BattlegroundsHeroOverlay.xaml</DependentUpon>
     </Compile>
@@ -1075,6 +1078,10 @@
     <Page Include="Controls\Overlay\AchievementProgressIndicator.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Controls\Overlay\BattlegroundsHeroesOverlay.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\Overlay\BattlegroundsHeroOverlay.xaml">
       <SubType>Designer</SubType>
