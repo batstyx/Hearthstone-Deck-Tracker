@@ -22,6 +22,7 @@ using System.Text.RegularExpressions;
 using HearthDb.Enums;
 using Hearthstone_Deck_Tracker.Utility.Analytics;
 using Hearthstone_Deck_Tracker.Utility.Extensions;
+using Hearthstone_Deck_Tracker.Controls.Overlay;
 
 #endregion
 
@@ -71,6 +72,9 @@ namespace Hearthstone_Deck_Tracker.Windows
 		private OverlayElementBehavior _bgsBobsBuddyBehavior;
 		private OverlayElementBehavior _bgsPastOpponentBoardBehavior;
 		private OverlayElementBehavior _experienceCounterBehavior;
+
+		private BattlegroundsHeroesViewModel _battlegroundsHeroesViewModel;
+		public BattlegroundsHeroesViewModel BattlegroundsHeroesViewModel { get => _battlegroundsHeroesViewModel; set { _battlegroundsHeroesViewModel = value; OnPropertyChanged(); } } 
 
 		private const int LevelResetDelay = 500;
 		private const int ExperienceFadeDelay = 6000;

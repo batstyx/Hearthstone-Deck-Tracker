@@ -3,18 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              xmlns:lex="http://wpflocalizeextension.codeplex.com" xmlns:hearthstone_deck_tracker="clr-namespace:Hearthstone_Deck_Tracker" xmlns:overlay="clr-namespace:Hearthstone_Deck_Tracker.Controls.Overlay"
              lex:LocalizeDictionary.DesignCulture="en"
              lex:ResxLocalizationProvider.DefaultAssembly="HearthstoneDeckTracker"
              lex:ResxLocalizationProvider.DefaultDictionary="Strings"
              mc:Ignorable="d">
     <Grid>
-        <Image Source="{StaticResource AchievementInProgressIcon}" RenderOptions.BitmapScalingMode="Fant" Height="80" Visibility="Collapsed"/>
-        <Image Source="{StaticResource AchievementEarnedIcon}" RenderOptions.BitmapScalingMode="Fant" Height="80" Visibility="Visible">
-           
-        </Image>
-        <hearthstone_deck_tracker:HearthstoneTextBlock Text="{Binding Progress}" FontWeight="Bold" FontSize="21" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="23,26,22,26" Width="35"/>
+            <Image Source="{Binding Image}" RenderOptions.BitmapScalingMode="Fant" Height="80"/>
+        <hearthstone_deck_tracker:HearthstoneTextBlock Text="{Binding ProgressText}" FontWeight="Bold" FontSize="21" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="23,26,22,26" Width="35"/>
     </Grid>
         
 </UserControl>

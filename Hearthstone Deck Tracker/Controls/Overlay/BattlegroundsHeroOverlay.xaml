@@ -5,9 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hearthstone_Deck_Tracker.Controls.Overlay" xmlns:windows="clr-namespace:Hearthstone_Deck_Tracker.Windows" xmlns:utility="clr-namespace:Hearthstone_Deck_Tracker.Utility"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-        <Grid Margin="{Binding BattlegroundsHeroChoiceMargin, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}">
-            <Rectangle Stroke="Red" Width="{Binding BattlegroundsHeroOptionWidth, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" Height="{Binding BattlegroundsHeroOptionHeight, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}"/>
+             >
+        <Grid Margin="20 0">
+            <Rectangle Stroke="Red" Width="200" Height="250"/>
             <local:HeroAchievmenets VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-40 0 0 -40"/>
             <local:BattlegroundsHeroStats/>
         </Grid>

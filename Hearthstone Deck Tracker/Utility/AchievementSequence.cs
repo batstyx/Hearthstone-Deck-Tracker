@@ -9,6 +9,6 @@ namespace Hearthstone_Deck_Tracker
 {
 	public class AchievementSequence
 	{
-		public List<AchievementData> Achievements = new List<AchievementData>();
+		public List<AchievementData> Achievements { get; } = new List<AchievementData>();
 	}
 }

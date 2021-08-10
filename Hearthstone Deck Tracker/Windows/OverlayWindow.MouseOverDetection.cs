@@ -31,8 +31,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 		public double CardWidth => Height * 0.125;
 		public double CardHeight => Height * 0.189;
 		public double BattlegroundsHeroOptionStackPanelHeight => Height * .294* 4.5483;
-		public double BattlegroundsHeroOptionHeight => Height * .144 * 4.5483;
-		public double BattlegroundsHeroOptionWidth => BattlegroundsHeroOptionHeight * .8989;
+		public double BattlegroundsOverlayScaling => Height / 1080;
 		//Adjusts OpponentDeadFor textblocks left by this amount depending on what position they represent on the leaderboard.
 		const double LeftAdjust = .00075;
 		//Adjusts the OpponentDeadFor textblock of the next oponent by this to the right so it aligns correctly with the hero portrait.

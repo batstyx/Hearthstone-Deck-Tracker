@@ -5,15 +5,40 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hearthstone_Deck_Tracker.Controls.Overlay" xmlns:windows="clr-namespace:Hearthstone_Deck_Tracker.Windows" xmlns:utility="clr-namespace:Hearthstone_Deck_Tracker.Utility"
              mc:Ignorable="d" 
-             d:DesignHeight="1000" d:DesignWidth="1000">
-    <Grid Name="GridBattlegroundsHeroSelection">
-        <StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <local:BattlegroundsHeroOverlay x:Name="HeroOption1"/>
-                <local:BattlegroundsHeroOverlay x:Name="HeroOption2"/>
-                <local:BattlegroundsHeroOverlay x:Name="HeroOption3"/>
-                <local:BattlegroundsHeroOverlay x:Name="HeroOption4"/>
-            </StackPanel>
-        </StackPanel>
-    </Grid>
+             >
+
+    <ItemsControl ItemsSource="{Binding Heroes}">
+        <ItemsControl.ItemTemplate>
+            <DataTemplate>
+                <Grid Margin="20 0">
+                    <Rectangle Stroke="Red" Width="200" Height="250"/>
+                    <ItemsControl ItemsSource="{Binding Sequences}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-40 0 0 -40"/>
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <local:AchievementProgressIndicator/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <local:BattlegroundsHeroStats/>
+                </Grid>
+            </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        <ItemsControl.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel.RenderTransform Name="GridBattlegroundsHeroSelection">
+                        <ScaleTransform ScaleX="{Binding DataContext.Scaling}" ScaleY="{Binding DataContext.Scaling}"/>
+                    </StackPanel.RenderTransform>
+                </StackPanel>
+            </ItemsPanelTemplate>
+        </ItemsControl.ItemsPanel>
+        
+    </ItemsControl>
+
+    
 </UserControl>
