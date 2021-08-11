@@ -1,7 +1,8 @@
 ﻿<UserControl x:Class="Hearthstone_Deck_Tracker.Controls.Overlay.BattlegroundsHeroesOverlay"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ext="clr-namespace:Hearthstone_Deck_Tracker.Utility.Extensions"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hearthstone_Deck_Tracker.Controls.Overlay" xmlns:windows="clr-namespace:Hearthstone_Deck_Tracker.Windows" xmlns:utility="clr-namespace:Hearthstone_Deck_Tracker.Utility"
              mc:Ignorable="d" 
@@ -10,17 +11,34 @@
     <ItemsControl ItemsSource="{Binding Heroes}">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Grid Margin="20 0">
+                <Grid Margin="20 0" Width="280" Height="330">
                     <Rectangle Stroke="Red" Width="200" Height="250"/>
                     <ItemsControl ItemsSource="{Binding Sequences}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="-40 0 0 -40"/>
+                                <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:AchievementProgressIndicator/>
+                                <local:AchievementProgressIndicator ext:OverlayExtensions.IsOverlayHitTestVisible="True" ToolTipService.InitialShowDelay="0">
+                                    <local:AchievementProgressIndicator.ToolTip>
+                                        <ToolTip Background="Transparent" BorderBrush="Transparent" Padding="0" Placement="Top">
+                                            <ItemsControl ItemsSource="{Binding Achievements}">
+                                                <ItemsControl.ItemsPanel>
+                                                    <ItemsPanelTemplate>
+                                                        <StackPanel/>
+                                                    </ItemsPanelTemplate>
+                                                </ItemsControl.ItemsPanel>
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <local:AchievementTextPanel/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
+                                        </ToolTip>
+                                    </local:AchievementProgressIndicator.ToolTip>
+                                </local:AchievementProgressIndicator>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>
@@ -31,7 +49,7 @@
         <ItemsControl.ItemsPanel>
             <ItemsPanelTemplate>
                 <StackPanel Orientation="Horizontal">
-                    <StackPanel.RenderTransform Name="GridBattlegroundsHeroSelection">
+                    <StackPanel.RenderTransform>
                         <ScaleTransform ScaleX="{Binding DataContext.Scaling}" ScaleY="{Binding DataContext.Scaling}"/>
                     </StackPanel.RenderTransform>
                 </StackPanel>

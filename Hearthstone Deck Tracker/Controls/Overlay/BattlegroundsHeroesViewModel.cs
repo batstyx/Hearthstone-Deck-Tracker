@@ -26,25 +26,33 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 
 	public class BattlegroundsHeroViewModel
 	{
+		public BattlegroundsHeroViewModel(List<AchievementSequence> sequences)
+		{
+			Sequences = sequences;
+		}
 		public List<AchievementSequence> Sequences { get; }
 	}
 
 	public class AchievementSequence
 	{
+		public AchievementSequence(List<Achievement> achievements)
+		{
+			Achievements = achievements;
+		}
 		public int Completed => Achievements.Count(x => x.Progress >= x.Quota);
 		public int Total => Achievements.Count;
 		public bool IsCompleted => Completed >= Total;
 		public List<Achievement> Achievements { get; }
-		public string ProgressText => $"{Completed}/{Total}";
+		public string ProgressText => IsCompleted ? "" : $"{Completed}/{Total}";
 		public ImageSource Image => (ImageSource)Application.Current.TryFindResource(IsCompleted ? "AchievementEarnedIcon" : "AchievementInProgressIcon");
 	}
 
 	public class Achievement
 	{
-		public string Text { get; }
-		public int Quota { get; }
-		public int Progress { get; }
-		public string ProgressText => $"{Progress}/{Quota}";
+		public string Text { get; set; }
+		public int Quota { get; set; }
+		public int Progress { get; set; }
+		public string ProgressText => IsCompleted ? "" : $"{Progress}/{Quota}";
 		public bool IsCompleted => Progress >= Quota;
 		public ImageSource Image => (ImageSource)Application.Current.TryFindResource(IsCompleted ? "AchievementEarnedIcon" : "AchievementInProgressIcon");
 	}

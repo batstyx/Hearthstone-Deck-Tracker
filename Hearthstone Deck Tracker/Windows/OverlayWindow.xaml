@@ -124,7 +124,7 @@
                 <ContentPresenter Content="{Binding BattlegroundsHeroesViewModel, RelativeSource={RelativeSource AncestorType=windows:OverlayWindow}}" x:Name="BattlegroundsHeroesOverlay">
                     <ContentPresenter.Resources>
                         <DataTemplate DataType="{x:Type overlay:BattlegroundsHeroesViewModel}">
-                            <overlay:BattlegroundsHeroesOverlay/>
+                            <overlay:BattlegroundsHeroesOverlay />
                         </DataTemplate>
                     </ContentPresenter.Resources>
                 </ContentPresenter>
