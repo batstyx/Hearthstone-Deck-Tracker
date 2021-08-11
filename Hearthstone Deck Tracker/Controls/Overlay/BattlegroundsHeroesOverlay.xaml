@@ -8,11 +8,11 @@
              mc:Ignorable="d" 
              >
 
-    <ItemsControl ItemsSource="{Binding Heroes}">
+    <ItemsControl ItemsSource="{Binding Heroes}" Margin="0 0 0 0">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Grid Margin="20 0" Width="280" Height="330">
-                    <Rectangle Stroke="Red" Width="200" Height="250"/>
+                <Grid Margin="{Binding HeroMargin}" Width="340" Height="374">
+                    <Rectangle Stroke="Red" Width="260" Height="297"/>
                     <ItemsControl ItemsSource="{Binding Sequences}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -50,7 +50,7 @@
             <ItemsPanelTemplate>
                 <StackPanel Orientation="Horizontal">
                     <StackPanel.RenderTransform>
-                        <ScaleTransform ScaleX="{Binding DataContext.Scaling}" ScaleY="{Binding DataContext.Scaling}"/>
+                        <ScaleTransform ScaleX="{Binding Scaling}" ScaleY="{Binding Scaling}"/>
                     </StackPanel.RenderTransform>
                 </StackPanel>
             </ItemsPanelTemplate>

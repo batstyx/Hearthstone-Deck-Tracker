@@ -94,10 +94,10 @@ namespace Hearthstone_Deck_Tracker.Windows
 			achievementstwo.Add(new Achievement() { Text = "Test achievement", Progress = 3, Quota = 3 });
 			sequences.Add(new Controls.Overlay.AchievementSequence(achievements));
 			sequences.Add(new Controls.Overlay.AchievementSequence(achievementstwo));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences));
+			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-3, 0, 0, 0)));
+			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-42, 0, 0, 0)));
+			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-45, 0, 0, 0)));
+			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-46, 0, 0, 0)));
 			_battlegroundsHeroesViewModel.Heroes = heroes;
 
 			

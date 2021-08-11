@@ -26,11 +26,14 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 
 	public class BattlegroundsHeroViewModel
 	{
-		public BattlegroundsHeroViewModel(List<AchievementSequence> sequences)
+		public BattlegroundsHeroViewModel(List<AchievementSequence> sequences, Thickness margin)
 		{
 			Sequences = sequences;
+			HeroMargin = margin;
 		}
 		public List<AchievementSequence> Sequences { get; }
+
+		public Thickness HeroMargin { get; }
 	}
 
 	public class AchievementSequence

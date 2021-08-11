@@ -284,6 +284,8 @@ namespace Hearthstone_Deck_Tracker.Windows
 				OnPropertyChanged(nameof(CardWidth));
 				OnPropertyChanged(nameof(CardHeight));
 				OnPropertyChanged(nameof(BattlegroundsOverlayScaling));
+				if(_battlegroundsHeroesViewModel != null)
+					_battlegroundsHeroesViewModel.Scaling = Height / 1080;
 			}
 
 			UpdateElementSizes();
@@ -355,8 +357,11 @@ namespace Hearthstone_Deck_Tracker.Windows
 			Canvas.SetLeft(IconBoardAttackOpponent, Helper.GetScaledXPos(Config.Instance.AttackIconOpponentHorizontalPosition / 100, (int)Width, ScreenRatio));
 			Canvas.SetTop(GridOpponentBoard, Height / 2 - GridOpponentBoard.ActualHeight - Height * 0.045);
 			Canvas.SetTop(GridPlayerBoard, Height / 2 - Height * 0.03);
-			//Canvas.SetTop(BattlegroundsHeroesOverlay, Height / 2 - BattlegroundsHeroesOverlay.ActualHeight/2);
-			//Canvas.SetLeft(BattlegroundsHeroesOverlay, Helper.GetScaledXPos(.1, (int)Width, ScreenRatio));
+			if(_battlegroundsHeroesViewModel != null)
+			{
+				Canvas.SetTop(BattlegroundsHeroesOverlay, Height * .4725 - _battlegroundsHeroesViewModel.Scaling * BattlegroundsHeroesOverlay.ActualHeight / 2);
+				Canvas.SetLeft(BattlegroundsHeroesOverlay, Width / 2 - _battlegroundsHeroesViewModel.Scaling * BattlegroundsHeroesOverlay.ActualWidth / 2);
+			}
 
 			Canvas.SetLeft(LinkOpponentDeckDisplay, Width * Config.Instance.OpponentDeckLeft / 100);
 
