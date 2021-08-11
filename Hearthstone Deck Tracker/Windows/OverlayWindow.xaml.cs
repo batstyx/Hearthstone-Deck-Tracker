@@ -83,22 +83,22 @@ namespace Hearthstone_Deck_Tracker.Windows
 
 		public OverlayWindow(GameV2 game)
 		{
-			_battlegroundsHeroesViewModel = new BattlegroundsHeroesViewModel();
-			_battlegroundsHeroesViewModel.Scaling = 1;
-			var heroes = new List<BattlegroundsHeroViewModel>();
-			var sequences = new List<Controls.Overlay.AchievementSequence>();
-			var achievements = new List<Controls.Overlay.Achievement>();
-			achievements.Add(new Achievement() { Text = "Test achievement", Progress = 2, Quota = 3 });
-			achievements.Add(new Achievement() { Text = "Test achievement", Progress = 4, Quota = 4 });
-			var achievementstwo = new List<Controls.Overlay.Achievement>();
-			achievementstwo.Add(new Achievement() { Text = "Test achievement", Progress = 3, Quota = 3 });
-			sequences.Add(new Controls.Overlay.AchievementSequence(achievements));
-			sequences.Add(new Controls.Overlay.AchievementSequence(achievementstwo));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-3, 0, 0, 0)));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-42, 0, 0, 0)));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-45, 0, 0, 0)));
-			heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-46, 0, 0, 0)));
-			_battlegroundsHeroesViewModel.Heroes = heroes;
+			//_battlegroundsHeroesViewModel = new BattlegroundsHeroesViewModel();
+			//_battlegroundsHeroesViewModel.Scaling = 1;
+			//var heroes = new List<BattlegroundsHeroViewModel>();
+			//var sequences = new List<Controls.Overlay.AchievementSequence>();
+			//var achievements = new List<Controls.Overlay.Achievement>();
+			//achievements.Add(new Achievement("test", 2, 3));
+			//achievements.Add(new Achievement("test", 4, 4));
+			//var achievementstwo = new List<Controls.Overlay.Achievement>();
+			//achievementstwo.Add(new Achievement("test", 3, 3));
+			//sequences.Add(new Controls.Overlay.AchievementSequence(achievements));
+			//sequences.Add(new Controls.Overlay.AchievementSequence(achievementstwo));
+			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-3, 0, 0, 0)));
+			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-42, 0, 0, 0)));
+			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-45, 0, 0, 0)));
+			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-46, 0, 0, 0)));
+			//_battlegroundsHeroesViewModel.Heroes = heroes;
 
 			
 

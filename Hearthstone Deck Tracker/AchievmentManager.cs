@@ -22,7 +22,7 @@ namespace Hearthstone_Deck_Tracker
 		//Called at the start of an hdt instance or an hs instance to ensure we know the exact DETAILS of hero achievement descriptions
 		public static async void GetAchievementInfo()
 		{
-			if(AchievementInfos != null && AchievementInfos.Count > 0 || inProgress)
+			if((AchievementInfos != null && AchievementInfos.Count > 0) || inProgress)
 				return;
 			inProgress = true;
 			try
@@ -66,16 +66,16 @@ namespace Hearthstone_Deck_Tracker
 					}
 					HeroToAchievementsTable[section.Name] = new List<AchievementSequence>(sequences);
 				}
-				inProgress = false;
 			}
 			catch(Exception e)
 			{
 				var error = e;
-			}
-			finally{
 				AchievementInfos.Clear();
 				AchievementSectionInfos.Clear();
 				HeroToAchievementsTable.Clear();
+			}
+			finally{
+				
 				inProgress = false;
 			}
 		}
@@ -133,7 +133,6 @@ namespace Hearthstone_Deck_Tracker
 			//		var completionInfo = achievementCompletionInfos.FirstOrDefault(x => x.AchievementId == achievementData.)
 			//	}
 			//}
-			var temp = new List<AchievementSequence>();
 			foreach(var option in CurrentBattlegroundsHeroOptions)
 			{
 				var sequences = GetSequencesFor(option.Name);
@@ -158,7 +157,6 @@ namespace Hearthstone_Deck_Tracker
 							achievementData.Status = completionInfo.Status;
 							achievementData.Progress = completionInfo.Progress;
 						}
-						temp.Add(sequence);
 					}
 				}
 				catch(Exception e)
@@ -168,7 +166,30 @@ namespace Hearthstone_Deck_Tracker
 			}
 			var xwef = 45;
 
-			
+			var newBattlegroundsHeroesViewModel = new BattlegroundsHeroesViewModel();
+			newBattlegroundsHeroesViewModel.Heroes = new List<BattlegroundsHeroViewModel>();
+			newBattlegroundsHeroesViewModel.Scaling = Core.Overlay.HeightScaleFactor;
+			foreach(var option in CurrentBattlegroundsHeroOptions)
+			{
+				var sequences = GetSequencesFor(option.Name);
+				var convertedSequences = new List<Controls.Overlay.AchievementSequence>();
+				foreach(var sequence in sequences)
+				{
+					var achievements = new List<Controls.Overlay.Achievement>();
+					foreach(var achievement in sequence.Achievements)
+					{
+						achievements.Add(new Achievement(achievement.Description, achievement.Quota, achievement.Progress));
+					}
+					var newSequence = new Controls.Overlay.AchievementSequence(achievements);
+					convertedSequences.Add(newSequence);
+				}
+				//0 thickness is temporary, want to link data then will ad the correct stuff
+				var newHero = new BattlegroundsHeroViewModel(convertedSequences, new System.Windows.Thickness(0));
+				newBattlegroundsHeroesViewModel.Heroes.Add(newHero);
+			}
+			//doing the viewmodel deconstruction here because imo it doesn't make sense to have the viewmodel have to know about every model that might use it
+
+			Core.Overlay.BattlegroundsHeroesViewModel = newBattlegroundsHeroesViewModel;
 
 			//List<(AchievementProgressIndicator, AchievementProgressIndicator)> toUpdate = new List<(AchievementProgressIndicator, AchievementProgressIndicator)>()
 			//{(Core.Overlay.Hero2PrimaryAchievementIndicator, Core.Overlay.Hero2SecondaryAchievmeentIndicator),

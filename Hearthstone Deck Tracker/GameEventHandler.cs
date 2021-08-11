@@ -1033,6 +1033,8 @@ namespace Hearthstone_Deck_Tracker
 		{
 			if(string.IsNullOrEmpty(cardId))
 				return;
+			if(_game.CurrentGameMode == GameMode.Battlegrounds && entity.IsHero)
+				Core.Overlay.BattlegroundsHeroesViewModel = null;
 			_game.Player.HandDiscard(entity, turn);
 			Core.UpdatePlayerCards();
 			GameEvents.OnPlayerHandDiscard.Execute(Database.GetCardFromId(cardId));

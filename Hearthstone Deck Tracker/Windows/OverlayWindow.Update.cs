@@ -255,6 +255,8 @@ namespace Hearthstone_Deck_Tracker.Windows
 			WotogIconsOpponent.LibramCounterStyle = showOpponentLibramCounter ? Full : None;
 		}
 
+		public double HeightScaleFactor => Height / 1080;
+
 		public void UpdatePosition()
 		{
 			//hide the overlay depenting on options
@@ -285,7 +287,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 				OnPropertyChanged(nameof(CardHeight));
 				OnPropertyChanged(nameof(BattlegroundsOverlayScaling));
 				if(_battlegroundsHeroesViewModel != null)
-					_battlegroundsHeroesViewModel.Scaling = Height / 1080;
+					_battlegroundsHeroesViewModel.Scaling = HeightScaleFactor;
 			}
 
 			UpdateElementSizes();

@@ -186,6 +186,7 @@ namespace Hearthstone_Deck_Tracker.BobsBuddy
 				if(CanRemoveLichKing)
 				{
 					var lichKingMinions = new List<Minion>();
+					//input is somethimes null here, look into it. maybe is why issues
 					var playerLichMinions = _input.opponentSide.Where(x => x.receivesLichKingPower).ToList();
 					var opponentLichMinions = _input.playerSide.Where(x => x.receivesLichKingPower).ToList();
 					lichKingMinions.AddRange(playerLichMinions);

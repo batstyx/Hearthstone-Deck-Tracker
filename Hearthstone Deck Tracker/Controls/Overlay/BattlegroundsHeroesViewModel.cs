@@ -52,6 +52,12 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 
 	public class Achievement
 	{
+		public Achievement(string text, int quota, int progress)
+		{
+			Text = text;
+			Quota = quota;
+			Progress = progress;
+		}
 		public string Text { get; set; }
 		public int Quota { get; set; }
 		public int Progress { get; set; }
