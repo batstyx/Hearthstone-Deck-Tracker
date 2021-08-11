@@ -164,14 +164,13 @@ namespace Hearthstone_Deck_Tracker
 					var error = e;
 				}
 			}
-			var xwef = 45;
 
 			var newBattlegroundsHeroesViewModel = new BattlegroundsHeroesViewModel();
 			newBattlegroundsHeroesViewModel.Heroes = new List<BattlegroundsHeroViewModel>();
 			newBattlegroundsHeroesViewModel.Scaling = Core.Overlay.HeightScaleFactor;
-			foreach(var option in CurrentBattlegroundsHeroOptions)
+			for(int i=0; i<CurrentBattlegroundsHeroOptions.Count; i++)
 			{
-				var sequences = GetSequencesFor(option.Name);
+				var sequences = GetSequencesFor(CurrentBattlegroundsHeroOptions[i].Name);
 				var convertedSequences = new List<Controls.Overlay.AchievementSequence>();
 				foreach(var sequence in sequences)
 				{
@@ -183,40 +182,15 @@ namespace Hearthstone_Deck_Tracker
 					var newSequence = new Controls.Overlay.AchievementSequence(achievements);
 					convertedSequences.Add(newSequence);
 				}
-				//0 thickness is temporary, want to link data then will ad the correct stuff
-				var newHero = new BattlegroundsHeroViewModel(convertedSequences, new System.Windows.Thickness(0));
+				var leftMargin = i < HeroPortraitLeftMargins.Count ? HeroPortraitLeftMargins[i] : 0;
+				var newHero = new BattlegroundsHeroViewModel(convertedSequences, new System.Windows.Thickness(leftMargin, 0, 0, 0));
 				newBattlegroundsHeroesViewModel.Heroes.Add(newHero);
 			}
 			//doing the viewmodel deconstruction here because imo it doesn't make sense to have the viewmodel have to know about every model that might use it
 
 			Core.Overlay.BattlegroundsHeroesViewModel = newBattlegroundsHeroesViewModel;
-
-			//List<(AchievementProgressIndicator, AchievementProgressIndicator)> toUpdate = new List<(AchievementProgressIndicator, AchievementProgressIndicator)>()
-			//{(Core.Overlay.Hero2PrimaryAchievementIndicator, Core.Overlay.Hero2SecondaryAchievmeentIndicator),
-			//(Core.Overlay.Hero3PrimaryAchievementIndicator, Core.Overlay.Hero3SecondaryAchievmeentIndicator) };
-			//if(CurrentBattlegroundsHeroOptions.Count == 4) {
-			//	toUpdate.Insert(0, (Core.Overlay.Hero1PrimaryAchievementIndicator, Core.Overlay.Hero1SecondaryAchievmeentIndicator));
-			//	toUpdate.Add((Core.Overlay.Hero4PrimaryAchievementIndicator, Core.Overlay.Hero4SecondaryAchievmeentIndicator));
-			//}
-
-			//for(int i = 0; i < CurrentBattlegroundsHeroOptions.Count; i++)
-			//{
-			//	//will the sequence itself not be null if nothing is found? hmm
-			//	var optionSequences = GetSequencesFor(CurrentBattlegroundsHeroOptions[i].Name);
-			//	if(optionSequences == null)
-			//		continue;
-			//	//if(optionSequences.Count > 2) should add logging like this everywhere maybe
-			//	//{
-			//	//	Log.Debug($"Found achievement sequence with count {optionSequences.Count} for hero {CurrentBattlegroundsHeroOptions[i].Name}");
-			//	//}
-			//	var indicator = toUpdate[i];
-			//	if(optionSequences.Count >= 1)
-			//	{
-			//		toUpdate[i].Item1.Update(optionSequences[0]);
-			//		if(optionSequences.Count == 2)
-			//			toUpdate[i].Item2.Update(optionSequences[1]);
-			//	}
-			//}
 		}
+		private static List<double> HeroPortraitLeftMargins = new List<double>() { 6, -42, -45, -46 };
 	}
+
 }

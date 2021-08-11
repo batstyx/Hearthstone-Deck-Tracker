@@ -12,7 +12,7 @@
         <ItemsControl.ItemTemplate>
             <DataTemplate>
                 <Grid Margin="{Binding HeroMargin}" Width="340" Height="374">
-                    <Rectangle Stroke="Red" Width="260" Height="297"/>
+                    <Rectangle Stroke="Transparent" Width="260" Height="297"/>
                     <ItemsControl ItemsSource="{Binding Sequences}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
