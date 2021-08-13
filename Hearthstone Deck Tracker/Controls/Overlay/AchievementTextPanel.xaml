@@ -8,7 +8,7 @@
              lex:ResxLocalizationProvider.DefaultAssembly="HearthstoneDeckTracker"
              lex:ResxLocalizationProvider.DefaultDictionary="Strings"
              mc:Ignorable="d">
-    <StackPanel Orientation="Horizontal" Background="#1C2021">
+    <StackPanel Orientation="Horizontal" Background="#1C2021" MinWidth="330" MaxWidth="330">
         <Viewbox Width="60" Height="60" Margin="10 5">
             <overlay:AchievementProgressIndicator DataContext="{Binding}"/>
         </Viewbox>

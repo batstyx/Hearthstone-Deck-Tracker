@@ -44,7 +44,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 		private readonly GameV2 _game;
 		private readonly Dictionary<UIElement, ResizeGrip> _movableElements = new Dictionary<UIElement, ResizeGrip>();
 		private readonly List<FrameworkElement> _clickableElements = new List<FrameworkElement>();
-		private readonly List<HoverableElement> _hoverableElements = new List<HoverableElement>();
+		private readonly List<FrameworkElement> _hoverableElements = new List<FrameworkElement>();
 		private readonly int _offsetX;
 		private readonly int _offsetY;
 		private readonly List<Ellipse> _oppBoard = new List<Ellipse>();
@@ -83,27 +83,6 @@ namespace Hearthstone_Deck_Tracker.Windows
 
 		public OverlayWindow(GameV2 game)
 		{
-			//_battlegroundsHeroesViewModel = new BattlegroundsHeroesViewModel();
-			//_battlegroundsHeroesViewModel.Scaling = 1;
-			//var heroes = new List<BattlegroundsHeroViewModel>();
-			//var sequences = new List<Controls.Overlay.AchievementSequence>();
-			//var achievements = new List<Controls.Overlay.Achievement>();
-			//achievements.Add(new Achievement("test", 2, 3));
-			//achievements.Add(new Achievement("test", 4, 4));
-			//var achievementstwo = new List<Controls.Overlay.Achievement>();
-			//achievementstwo.Add(new Achievement("test", 3, 3));
-			//sequences.Add(new Controls.Overlay.AchievementSequence(achievements));
-			//sequences.Add(new Controls.Overlay.AchievementSequence(achievementstwo));
-			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-3, 0, 0, 0)));
-			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-42, 0, 0, 0)));
-			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-45, 0, 0, 0)));
-			//heroes.Add(new BattlegroundsHeroViewModel(sequences, new Thickness(-46, 0, 0, 0)));
-			//_battlegroundsHeroesViewModel.Heroes = heroes;
-
-			
-
-			
-
 			// These need to be set before InitializeComponent is called
 			OverlayExtensions.OnRegisterHitTestVisible += (e, clickable) =>
 			{
@@ -111,6 +90,14 @@ namespace Hearthstone_Deck_Tracker.Windows
 					_clickableElements.Add(e);
 				else
 					_clickableElements.Remove(e);
+			};
+
+			OverlayExtensions.OnRegisterHoverVisible += (e, hoverable) =>
+			{
+				if(hoverable)
+					_hoverableElements.Add(e);
+				else
+					_hoverableElements.Remove(e);
 			};
 
 			_game = game;
@@ -513,6 +500,16 @@ namespace Hearthstone_Deck_Tracker.Windows
 				}
 				index--;
 			}
+		}
+
+		private void StackPanelOpponent_MouseEnter(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			LinkOpponentDeckDisplay.ShowByOpponentStack();
+		}
+
+		private void StackPanelOpponent_MouseLeave(object sender, System.Windows.Input.MouseEventArgs e)
+		{
+			LinkOpponentDeckDisplay.HideByOpponentStack();
 		}
 	}
 }

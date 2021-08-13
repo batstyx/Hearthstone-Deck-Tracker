@@ -1,19 +1,35 @@
-﻿using Hearthstone_Deck_Tracker.Utility.MVVM;
+﻿using Hearthstone_Deck_Tracker.Utility;
+using Hearthstone_Deck_Tracker.Utility.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace Hearthstone_Deck_Tracker.Controls.Overlay
 {
 	public class BattlegroundsHeroesViewModel : ViewModel
 	{
-		private List<BattlegroundsHeroViewModel> heroes = new List<BattlegroundsHeroViewModel>();
+		public void SetHeroes(List<BattlegroundsHeroViewModel> heroes)
+		{
+			for(int i =0; i < heroes.Count; i++)
+			{
+				if(i + 1 <= (double)heroes.Count / 2)
+				{
+					//Make sure this doesn't leak references
+					var nextHeroIndex = i + 1;
+					heroes[i].OnHover += (hovering) => heroes[nextHeroIndex].IsVisible = !hovering;
+				}
+			}
+			Heroes = heroes;
+		}
 
-		public List<BattlegroundsHeroViewModel> Heroes { get => heroes; set { heroes = value; OnPropertyChanged(); } }
+		private List<BattlegroundsHeroViewModel> _heroes = new List<BattlegroundsHeroViewModel>();
+
+		public List<BattlegroundsHeroViewModel> Heroes { get => _heroes; private set { _heroes = value; OnPropertyChanged(); } }
 
 		private double _scaling;
 
@@ -24,7 +40,7 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 		}
 	}
 
-	public class BattlegroundsHeroViewModel
+	public class BattlegroundsHeroViewModel : ViewModel
 	{
 		public BattlegroundsHeroViewModel(List<AchievementSequence> sequences, Thickness margin)
 		{
@@ -34,6 +50,13 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 		public List<AchievementSequence> Sequences { get; }
 
 		public Thickness HeroMargin { get; }
+
+		private bool _isVisible = true;
+		public bool IsVisible { get => _isVisible; set { _isVisible = value; OnPropertyChanged(); } }
+
+		public event Action<bool> OnHover;
+
+		public ICommand HoverCommand => new Command<bool>((hovering) => { OnHover?.Invoke(hovering); });
 	}
 
 	public class AchievementSequence

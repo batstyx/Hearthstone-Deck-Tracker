@@ -269,6 +269,7 @@
     <Compile Include="Controls\OAuthLogin.xaml.cs">
       <DependentUpon>OAuthLogin.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controls\Overlay\AchievementProgressIndicatorConverters.cs" />
     <Compile Include="Controls\Overlay\AchievementTextPanel.xaml.cs">
       <DependentUpon>AchievementTextPanel.xaml</DependentUpon>
     </Compile>

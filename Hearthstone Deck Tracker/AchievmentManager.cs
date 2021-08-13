@@ -1,8 +1,5 @@
-﻿using HearthDb.Enums;
-using HearthMirror;
+﻿using HearthMirror;
 using Hearthstone_Deck_Tracker.Controls.Overlay;
-using Hearthstone_Deck_Tracker.Hearthstone;
-using Hearthstone_Deck_Tracker.Utility.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -83,11 +80,12 @@ namespace Hearthstone_Deck_Tracker
 		private static List<AchievementSequence> GetSequencesFor(string name)
 		{
 			var sequences = HeroToAchievementsTable.FirstOrDefault(x => x.Key == name).Value;
-
 			if(sequences == null)
-				sequences = HeroToAchievementsTable.FirstOrDefault(x => name.Contains(x.Key)).Value;
+				sequences = HeroToAchievementsTable.FirstOrDefault(x => !(string.IsNullOrEmpty(x.Key) || x.Key == ".") && name.Contains(x.Key)).Value;
 			if(sequences == null)
-				sequences = HeroToAchievementsTable.FirstOrDefault(x => x.Key.Contains(name)).Value;
+				sequences = HeroToAchievementsTable.FirstOrDefault(x => !(string.IsNullOrEmpty(x.Key) || x.Key == ".") && name.Replace(" ", "").Contains(x.Key)).Value;
+			if(sequences == null)
+				sequences = HeroToAchievementsTable.FirstOrDefault(x => !(string.IsNullOrEmpty(x.Key) || x.Key == ".") && x.Key.Contains(name)).Value;
 			return sequences;
 		}
 
@@ -100,15 +98,6 @@ namespace Hearthstone_Deck_Tracker
 				if(!HeroToAchievementsTable.Any())
 					return;
 			}
-
-			//Core.Overlay.Hero1PrimaryAchievementIndicator.Reset();
-			//Core.Overlay.Hero1SecondaryAchievmeentIndicator.Reset();
-			//Core.Overlay.Hero2PrimaryAchievementIndicator.Reset();
-			//Core.Overlay.Hero2SecondaryAchievmeentIndicator.Reset();
-			//Core.Overlay.Hero3PrimaryAchievementIndicator.Reset();
-			//Core.Overlay.Hero3SecondaryAchievmeentIndicator.Reset();
-			//Core.Overlay.Hero4PrimaryAchievementIndicator.Reset();
-			//Core.Overlay.Hero4SecondaryAchievmeentIndicator.Reset();
 
 			await Task.Delay(4000);
 
@@ -124,22 +113,9 @@ namespace Hearthstone_Deck_Tracker
 				return;
 			CurrentBattlegroundsHeroOptions = heroOptions;
 
-			//var sequences = HeroToAchievementsTable.Where(x => CurrentBattlegroundsHeroOptions.Select(y => y.Name).Contains(x.Key)).Select(z => z.Value).ToList();
-
-			//foreach(var sequence in sequences.)
-			//{
-			//	foreach(var achievementData in sequence)
-			//	{
-			//		var completionInfo = achievementCompletionInfos.FirstOrDefault(x => x.AchievementId == achievementData.)
-			//	}
-			//}
 			foreach(var option in CurrentBattlegroundsHeroOptions)
 			{
 				var sequences = GetSequencesFor(option.Name);
-				if(sequences.Count > 1)
-				{
-					var fawefw = "wfawe";
-				}
 				try
 				{
 					foreach(var sequence in sequences)
@@ -166,7 +142,7 @@ namespace Hearthstone_Deck_Tracker
 			}
 
 			var newBattlegroundsHeroesViewModel = new BattlegroundsHeroesViewModel();
-			newBattlegroundsHeroesViewModel.Heroes = new List<BattlegroundsHeroViewModel>();
+			var newHeroes = new List<BattlegroundsHeroViewModel>();
 			newBattlegroundsHeroesViewModel.Scaling = Core.Overlay.HeightScaleFactor;
 			for(int i=0; i<CurrentBattlegroundsHeroOptions.Count; i++)
 			{
@@ -184,13 +160,13 @@ namespace Hearthstone_Deck_Tracker
 				}
 				var leftMargin = i < HeroPortraitLeftMargins.Count ? HeroPortraitLeftMargins[i] : 0;
 				var newHero = new BattlegroundsHeroViewModel(convertedSequences, new System.Windows.Thickness(leftMargin, 0, 0, 0));
-				newBattlegroundsHeroesViewModel.Heroes.Add(newHero);
+				newHeroes.Add(newHero);
 			}
 			//doing the viewmodel deconstruction here because imo it doesn't make sense to have the viewmodel have to know about every model that might use it
-
+			newBattlegroundsHeroesViewModel.SetHeroes(newHeroes);
 			Core.Overlay.BattlegroundsHeroesViewModel = newBattlegroundsHeroesViewModel;
 		}
-		private static List<double> HeroPortraitLeftMargins = new List<double>() { 6, -42, -45, -46 };
+		private static List<double> HeroPortraitLeftMargins = new List<double>() { 18, -42, -45, -46 };
 	}
 
 }

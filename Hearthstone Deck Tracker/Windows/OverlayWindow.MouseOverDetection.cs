@@ -424,7 +424,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 			
 			var clickableHoveredIndex = _clickableElements.FindIndex(e => ElementContains(e, cursorPos, AutoScaling));
 			SetClickthrough(clickableHoveredIndex < 0);
-			var hoverableHoveredIndex = _hoverableElements.FindIndex(e => ElementContains(e.element, cursorPos, AutoScaling));
+			var hoverableHoveredIndex = _hoverableElements.FindIndex(e => ElementContains(e, cursorPos, AutoScaling));
 			if(hoverableHoveredIndex != _currentlyHoveredIndex)
 			{
 				if(_currentlyHoveredIndex != -1)
@@ -432,13 +432,13 @@ namespace Hearthstone_Deck_Tracker.Windows
 					await Task.Delay(MouseLeaveEventDelay);
 					if(hoverableHoveredIndex != _currentlyHoveredIndex)
 					{
-						_hoverableElements[_currentlyHoveredIndex].OnMouseLeave();
+						_hoverableElements[_currentlyHoveredIndex].RaiseEvent(new MouseEventArgs(Mouse.PrimaryDevice, 0) { RoutedEvent = Mouse.MouseLeaveEvent });
 						_currentlyHoveredIndex = -1;
 					}
 				}
 				if(hoverableHoveredIndex != -1)
 				{
-					_hoverableElements[hoverableHoveredIndex].OnMouseEnter();
+					_hoverableElements[hoverableHoveredIndex].RaiseEvent(new MouseEventArgs(Mouse.PrimaryDevice, 0) { RoutedEvent = Mouse.MouseEnterEvent });
 					_currentlyHoveredIndex = hoverableHoveredIndex;
 				}
 			}

@@ -5,15 +5,18 @@
              xmlns:ext="clr-namespace:Hearthstone_Deck_Tracker.Utility.Extensions"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Hearthstone_Deck_Tracker.Controls.Overlay" xmlns:windows="clr-namespace:Hearthstone_Deck_Tracker.Windows" xmlns:utility="clr-namespace:Hearthstone_Deck_Tracker.Utility"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
+            Name="BattlegroundsHeroesOverlayControl"
              >
-
-    <ItemsControl ItemsSource="{Binding Heroes}" Margin="0 0 0 0">
+    <UserControl.Resources>
+        <local:AchievementProgressTooltipPositionConverter x:Key="TooltipPosition"/>
+    </UserControl.Resources>
+    <ItemsControl ItemsSource="{Binding Heroes}" Name="HeroesItemsControl">
         <ItemsControl.ItemTemplate>
             <DataTemplate>
-                <Grid Margin="{Binding HeroMargin}" Width="340" Height="374">
-                    <Rectangle Stroke="Transparent" Width="260" Height="297"/>
-                    <ItemsControl ItemsSource="{Binding Sequences}">
+                <Grid Margin="{Binding HeroMargin}" Width="340" Height="374" Background="#01000000">
+                    <Rectangle Width="260" Height="297" MouseEnter="Rectangle_MouseEnter" MouseLeave="Rectangle_MouseLeave" ext:OverlayExtensions.IsOverlayHoverVisible="True"/>
+                    <ItemsControl ItemsSource="{Binding Sequences}" Visibility="{Binding IsVisible, Converter={StaticResource BoolToVisibility}}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <StackPanel VerticalAlignment="Bottom" HorizontalAlignment="Left"/>
@@ -21,10 +24,19 @@
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
-                                <local:AchievementProgressIndicator ext:OverlayExtensions.IsOverlayHitTestVisible="True" ToolTipService.InitialShowDelay="0">
+                                <local:AchievementProgressIndicator ext:OverlayExtensions.IsOverlayHitTestVisible="True" ToolTipService.InitialShowDelay="0" ToolTipService.ShowDuration="100000">
                                     <local:AchievementProgressIndicator.ToolTip>
-                                        <ToolTip Background="Transparent" BorderBrush="Transparent" Padding="0" Placement="Top">
-                                            <ItemsControl ItemsSource="{Binding Achievements}">
+                                        <ToolTip Background="Transparent" BorderThickness="0" Padding="0" Placement="Top">
+                                            <ToolTip.LayoutTransform>
+                                                <ScaleTransform ScaleX="{Binding DataContext.Scaling, Source={x:Reference BattlegroundsHeroesOverlayControl}}" ScaleY="{Binding DataContext.Scaling, Source={x:Reference BattlegroundsHeroesOverlayControl}}"/>
+                                            </ToolTip.LayoutTransform>
+                                            <ToolTip.HorizontalOffset>
+                                                <MultiBinding Converter="{StaticResource TooltipPosition}">
+                                                    <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                                                    <Binding Path="PlacementTarget.ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                                                </MultiBinding>
+                                            </ToolTip.HorizontalOffset>
+                                            <ItemsControl ItemsSource="{Binding Achievements}" >
                                                 <ItemsControl.ItemsPanel>
                                                     <ItemsPanelTemplate>
                                                         <StackPanel/>
@@ -32,7 +44,7 @@
                                                 </ItemsControl.ItemsPanel>
                                                 <ItemsControl.ItemTemplate>
                                                     <DataTemplate>
-                                                        <local:AchievementTextPanel/>
+                                                        <local:AchievementTextPanel BorderBrush="Black" BorderThickness="2" Margin="0 -1" HorizontalAlignment="Center"/>
                                                     </DataTemplate>
                                                 </ItemsControl.ItemTemplate>
                                             </ItemsControl>

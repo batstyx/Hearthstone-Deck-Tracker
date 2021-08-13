@@ -361,7 +361,7 @@ namespace Hearthstone_Deck_Tracker.Windows
 			Canvas.SetTop(GridPlayerBoard, Height / 2 - Height * 0.03);
 			if(_battlegroundsHeroesViewModel != null)
 			{
-				Canvas.SetTop(BattlegroundsHeroesOverlay, Height * .4725 - _battlegroundsHeroesViewModel.Scaling * BattlegroundsHeroesOverlay.ActualHeight / 2);
+				Canvas.SetTop(BattlegroundsHeroesOverlay, Height * .4660 - _battlegroundsHeroesViewModel.Scaling * BattlegroundsHeroesOverlay.ActualHeight / 2);
 				Canvas.SetLeft(BattlegroundsHeroesOverlay, Width / 2 - _battlegroundsHeroesViewModel.Scaling * BattlegroundsHeroesOverlay.ActualWidth / 2);
 			}
 

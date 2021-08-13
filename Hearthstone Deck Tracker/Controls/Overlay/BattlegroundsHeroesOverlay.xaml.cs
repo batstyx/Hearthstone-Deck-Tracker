@@ -24,5 +24,15 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 		{
 			InitializeComponent();
 		}
+
+		private void Rectangle_MouseEnter(object sender, MouseEventArgs e)
+		{
+			(((Rectangle)sender).DataContext as BattlegroundsHeroViewModel)?.HoverCommand.Execute(true);
+		}
+
+		private void Rectangle_MouseLeave(object sender, MouseEventArgs e)
+		{
+			(((Rectangle)sender).DataContext as BattlegroundsHeroViewModel)?.HoverCommand.Execute(false);
+		}
 	}
 }
