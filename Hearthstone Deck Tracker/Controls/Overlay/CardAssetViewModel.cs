@@ -44,7 +44,7 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 			var card = _card;
 			if(card == null)
 			{
-				_path = _assetDownloader?.PlaceholderAssetPath;
+				AssetPath = _assetDownloader.PlaceholderAssetPath;
 				return;
 			}
 			if(_loading)
@@ -67,7 +67,7 @@ namespace Hearthstone_Deck_Tracker.Controls.Overlay
 			}
 		}
 
-		public async Task SetCard(Hearthstone.Card card)
+		public async Task SetCard(Hearthstone.Card? card)
 		{
 			_card = card;
 			await LoadImage();

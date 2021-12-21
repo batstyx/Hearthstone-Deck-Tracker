@@ -27,6 +27,8 @@ namespace Hearthstone_Deck_Tracker.Utility.Themes
 		protected Typeface NumbersTypeFace = new Typeface(new FontFamily(new Uri("pack://application:,,,/"), "./resources/#Chunkfive"), FontStyles.Normal,
 										  FontWeights.Normal, FontStretches.Condensed);
 
+		public string CardArtAssetPath = "pack://application:,,,/Resources/faceless-tile.jpg";
+
 		protected double CountFontSize = 17;
 		protected double TextFontSize = 13;
 		protected double CostFontSize = 20;
@@ -116,14 +118,11 @@ namespace Hearthstone_Deck_Tracker.Utility.Themes
 		protected virtual void AddCardImage() => AddCardImage(ImageRect, false);
 		protected void AddCardImage(Rect rect, bool offsetByCountBox)
 		{
-			var bmp = ImageCache.GetCardImage(Card);
-			if(bmp != null)
-			{
-				if(offsetByCountBox && (Math.Abs(Card.Count) > 1 || Card.Rarity == Rarity.LEGENDARY))
-					AddChild(bmp, rect.Move(ImageOffset, 0));
-				else
-					AddChild(bmp, rect);
-			}
+			BitmapImage bmp = new BitmapImage(new Uri(CardArtAssetPath));
+			if(offsetByCountBox && (Math.Abs(Card.Count) > 1 || Card.Rarity == Rarity.LEGENDARY))
+				AddChild(bmp, rect.Move(ImageOffset, 0));
+			else
+				AddChild(bmp, rect);
 		}
 
 		protected virtual void AddFadeOverlay() => AddFadeOverlay(Required[ThemeElement.FadeOverlay].Rectangle, false);

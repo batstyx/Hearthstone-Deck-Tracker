@@ -25,4 +25,3 @@ catch {
 }
 
 Invoke-Expression "msbuild Bootstrap/Bootstrap.csproj /p:Configuration=Debug"
-Invoke-Expression "./generate_resources.bat"

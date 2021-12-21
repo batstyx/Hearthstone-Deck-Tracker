@@ -4,10 +4,12 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using Hearthstone_Deck_Tracker.Annotations;
+using Hearthstone_Deck_Tracker.Controls.Overlay;
 using Hearthstone_Deck_Tracker.Enums;
 using Hearthstone_Deck_Tracker.Hearthstone;
 using Hearthstone_Deck_Tracker.Utility;
@@ -21,6 +23,8 @@ namespace Hearthstone_Deck_Tracker.Controls
 	public partial class CardMarker : INotifyPropertyChanged
 	{
 		private static readonly Int32Rect CropRect = new Int32Rect() { Height = 34, Width = 34, X = 55, Y = 0 };
+
+		private readonly CardAssetViewModel _cardTileAsset = new(null, Utility.Assets.CardAssetType.Tile);
 
 		private int _cardAge;
 		private Visibility _cardAgeVisibility;
@@ -145,12 +149,13 @@ namespace Hearthstone_Deck_Tracker.Controls
 			CostReductionVisibility = costReduction > 0 ? Visible : Collapsed;
 		}
 
-		public void UpdateSourceCard(Hearthstone.Card? card)
+		public async Task UpdateSourceCard(Hearthstone.Card? card)
 		{
 			if(SourceCard == card)
 				return;
 			SourceCard = card;
-			var cardTile = card != null ? ImageCache.GetCardImage(card) : null;
+			await _cardTileAsset.SetCard(card);
+			var cardTile = new BitmapImage(new Uri(_cardTileAsset.AssetPath));
 			SourceCardBitmap = cardTile != null ? new CroppedBitmap(cardTile, CropRect) : null;
 		}
 

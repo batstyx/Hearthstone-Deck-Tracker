@@ -18,9 +18,7 @@ namespace Hearthstone_Deck_Tracker.Utility.Themes
 
 		protected override void AddCardImage()
 		{
-			var bmp = ImageCache.GetCardBitmap(Card);
-			if(bmp == null)
-				return;
+			var bmp = new Bitmap(CardArtAssetPath);
 			var img = new GaussianBlur(bmp).Process(2);
 			DrawingGroup.Children.Add(new ImageDrawing(img.ToImageSource(), FrameRect));
 		}

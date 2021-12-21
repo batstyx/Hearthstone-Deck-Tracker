@@ -20,9 +20,6 @@ namespace ResourceGenerator
 			ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 			switch(args[0])
 			{
-				case "tiles":
-					GenerateTiles(args);
-					break;
 				case "whizbang":
 					GenerateWhizbangDecks(args);
 					break;
@@ -55,44 +52,6 @@ namespace ResourceGenerator
 				sw.WriteLine(JsonConvert.SerializeObject(whizbangDecks, Formatting.Indented));
 			Console.WriteLine("Saved to " + file);
 			Console.ReadKey();
-		}
-
-		private static void GenerateTiles(string[] args)
-		{
-			var dir = args[1];
-			var tilesDir = Path.Combine(dir, args[2]);
-			var genDir = Path.Combine(dir, "Generated", args[2]);
-			var dict = new Dictionary<string, List<Card>>();
-
-			Directory.CreateDirectory(genDir);
-
-			foreach(var card in Cards.All)
-			{
-				if(card.Value.Set == CardSet.CHEAT || card.Value.Set == CardSet.SLUSH || card.Value.Set == CardSet.LETTUCE || card.Value.Set == CardSet.MERCENARIES_DEV)
-					continue;
-				var key = card.Value.Set + (card.Value.Collectible ? "" : "_NC");
-				if(!dict.ContainsKey(key))
-					dict[key] = new List<Card>();
-				dict[key].Add(card.Value);
-			}
-
-			foreach(var set in dict.Keys)
-			{
-				var file = $"{genDir}\\{set}.res";
-				Console.WriteLine($"Generating {file}...");
-				using(var rw = new ResourceWriter(file))
-				{
-					foreach(var card in dict[set])
-					{
-						var img = new FileInfo($"{tilesDir}\\{card.Id}.png");
-						if(!img.Exists && (card.Collectible || card.Type == CardType.MINION || card.Type == CardType.SPELL || card.Type == CardType.WEAPON))
-							Console.WriteLine($"missing {card.Id}");
-						if(!img.Exists)
-							continue;
-						rw.AddResource(card.Id, new Bitmap(img.FullName));
-					}
-				}
-			}
 		}
 	}
 }

@@ -42,10 +42,10 @@ namespace Hearthstone_Deck_Tracker.Utility.Assets
 			{
 				cardTileDownloader = new AssetDownloader<Hearthstone.Card>(
 					Path.Combine(Config.AppDataPath, "Images", "CardTiles"),
-					(Hearthstone.Card card) => $"https://art.hearthstonejson.com/v1/tiles/{card.Id}.png",
-					(Hearthstone.Card card) => $"{card.Id}.png",
-					maxSize: 500,
-					placeholderAsset: "pack://application:,,,/Resources/faceless_manipulator.png"
+					(Hearthstone.Card card) => $"https://art.hearthstonejson.com/v1/tiles/{card.Id}.jpg",
+					(Hearthstone.Card card) => $"{card.Id}.jpg",
+					maxSize: 10000,
+					placeholderAsset: "pack://application:,,,/Resources/faceless-tile.jpg"
 				);
 			}
 			catch(ArgumentException e)

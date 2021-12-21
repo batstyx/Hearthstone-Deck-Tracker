@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:deckScreenshot="clr-namespace:Hearthstone_Deck_Tracker.FlyoutControls.DeckScreenshot"
              xmlns:lex="http://wpflocalizeextension.codeplex.com"
              mc:Ignorable="d"
@@ -69,7 +70,10 @@
         </Button>
         <GroupBox Header="{lex:LocTextUpper DeckScreenshot_Preview_Header}" Margin="0,5">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Image DockPanel.Dock="Left" Width="219" Source="{Binding DeckImage}" RenderOptions.BitmapScalingMode="fant"/>
+                <Grid>
+                    <controls:ProgressRing IsActive="True" Foreground="White" Width="40" Height="40" Visibility="{Binding SpinnerVisibility}"/>
+                    <Image DockPanel.Dock="Left" Width="219" Source="{Binding DeckImage}" RenderOptions.BitmapScalingMode="fant"/>
+                </Grid>
             </ScrollViewer>
         </GroupBox>
     </DockPanel>

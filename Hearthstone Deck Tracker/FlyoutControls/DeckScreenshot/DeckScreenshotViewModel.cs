@@ -10,6 +10,7 @@ using System.Windows.Media.Imaging;
 using Hearthstone_Deck_Tracker.Annotations;
 using Hearthstone_Deck_Tracker.Hearthstone;
 using Hearthstone_Deck_Tracker.Utility;
+using Hearthstone_Deck_Tracker.Utility.Extensions;
 using Hearthstone_Deck_Tracker.Utility.MVVM;
 
 #endregion
@@ -42,7 +43,7 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.DeckScreenshot
 				_cardsOnly = value;
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(TitleTextBoxVisibility));
-				UpdateImage();
+				UpdateImage().Forget();
 			}
 		}
 
@@ -55,7 +56,7 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.DeckScreenshot
 				{
 					_deck.Name = value;
 					OnPropertyChanged();
-					UpdateImage();
+					UpdateImage().Forget();
 				}
 			}
 		}
@@ -67,6 +68,7 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.DeckScreenshot
 			{
 				_deckImage = value;
 				OnPropertyChanged();
+				OnPropertyChanged(nameof(SpinnerVisibility));
 			}
 		}
 
@@ -99,7 +101,7 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.DeckScreenshot
 				UploadButtonText = LocUtil.Get(ImgurDefault, true);
 				UploadButtonEnabled = true;
 				UploadErrorVisibility = Visibility.Collapsed;
-				UpdateImage();
+				UpdateImage().Forget();
 			}
 		}
 
@@ -166,6 +168,8 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.DeckScreenshot
 
 		public Visibility TitleTextBoxVisibility => CardsOnly ? Visibility.Collapsed : Visibility.Visible;
 
+		public Visibility SpinnerVisibility => DeckImage == null ? Visibility.Visible : Visibility.Collapsed;
+
 		public string? SavedFilePath => SavedFile?.FullName;
 
 		public string? SavedFileShortName => SavedFile?.Name;
@@ -213,11 +217,16 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.DeckScreenshot
 			CopyToClipboardButtonText = LocUtil.Get(ClipboardDefault, true);
 		}
 
-		public void UpdateImage()
+		public async Task UpdateImage()
 		{
 			if(_deck == null)
 				return;
-			DeckImage = DeckScreenshotHelper.Generate(_deck, CardsOnly);
+			var deck = _deck;
+			DeckImage = null;
+			var newDeckImage = await DeckScreenshotHelper.Generate(_deck, CardsOnly);
+			// Ensure the deck hasn't changed since we started generating it.
+			if(deck == _deck)
+				DeckImage = newDeckImage;
 		}
 	}
 }

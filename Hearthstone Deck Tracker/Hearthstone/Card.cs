@@ -12,6 +12,7 @@ using System.Xml.Serialization;
 using HearthDb.Enums;
 using Hearthstone_Deck_Tracker.Annotations;
 using Hearthstone_Deck_Tracker.Utility;
+using Hearthstone_Deck_Tracker.Utility.Assets;
 using Hearthstone_Deck_Tracker.Utility.Logging;
 using Hearthstone_Deck_Tracker.Utility.Themes;
 
@@ -409,36 +410,75 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 			return ThemeManager.GetBarImageBuilder(this);
 		}
 
+		private bool _loadingImageAsset;
+		private string? GetArtAssetPath()
+		{
+			var downloader = AssetDownloaders.cardTileDownloader;
+			if(downloader == null)
+				return null;
+			if(downloader.HasAsset(this))
+				return downloader.StoragePathFor(this);
+			if(!_loadingImageAsset)
+			{
+				_loadingImageAsset = true;
+				_ = downloader.DownloadAsset(this).ContinueWith(async (success) =>
+				  {
+					  if(await success)
+					  {
+						  _loadingImageAsset = false;
+						  OnPropertyChanged(nameof(Background));
+					  }
+				  });
+			}
+			return null;
+		}
+		[XmlIgnore]
+		public bool HasLoadedBackground { get; private set; }
+
+		private static readonly DrawingBrush MissingBackground = new();
+
 		public DrawingBrush Background
 		{
 			get
 			{
 				if(Id == null || Name == null)
-					return new DrawingBrush();
-				var cardImageObj = new CardImageObject(this);
+					return MissingBackground;
+				var assetPath = GetArtAssetPath();
+				var cardImageObj = new CardImageObject(this, assetPath);
 				if(CardImageCache.TryGetValue(Id, out var cache))
 				{
 					if(cache.TryGetValue(cardImageObj.GetHashCode(), out var cached))
-						return cached.Image ?? new DrawingBrush();
+					{
+						HasLoadedBackground = assetPath != null;
+						return cached.Image ?? MissingBackground;
+					}
 				}
 				try
 				{
-					var image = GetImageBuilder()?.Build() ?? new DrawingBrush();
+					var builder = GetImageBuilder();
+					if(builder == null)
+						return MissingBackground;
+					if(assetPath != null)
+					{
+						builder.CardArtAssetPath = assetPath;
+					}
+					var image = builder.Build();
 					if (image.CanFreeze)
 						image.Freeze();
-					cardImageObj = new CardImageObject(image, this);
+					cardImageObj = new CardImageObject(image, this, assetPath);
 					if(cache == null)
 					{
 						cache = new Dictionary<int, CardImageObject>();
 						CardImageCache.Add(Id, cache);
 					}
 					cache.Add(cardImageObj.GetHashCode(), cardImageObj);
-					return cardImageObj.Image ?? new DrawingBrush();
+					HasLoadedBackground = assetPath != null;
+					return cardImageObj.Image ?? MissingBackground;
 				}
 				catch(Exception ex)
 				{
 					Log.Error($"Image builder failed: {ex.Message}");
-					return new DrawingBrush();
+					return MissingBackground;
 				}
 			}
 		}
@@ -536,12 +576,13 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 		public int TextColorHash { get; }
 		public bool BaconCard { get; }
 
-		public CardImageObject(DrawingBrush image, Card card) : this(card)
+		public string? ArtAssetPath { get; }
+		public CardImageObject(DrawingBrush image, Card card, string? artAssetPath) : this(card, artAssetPath)
 		{
 			Image = image;
 		}
 
-		public CardImageObject(Card card)
+		public CardImageObject(Card card, string? artAssetPath)
 		{
 			Count = card.Count;
 			Jousted = card.Jousted;
@@ -551,6 +592,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 			TextColorHash = card.ColorPlayer.Color.GetHashCode();
 			Created = card.IsCreated;
 			BaconCard = card.BaconCard;
+			ArtAssetPath = artAssetPath;
 		}
 
 		public override bool Equals(object obj)
@@ -561,7 +603,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 
 		protected bool Equals(CardImageObject other)
 			=> Count == other.Count && Jousted == other.Jousted && ColoredFrame == other.ColoredFrame && ColoredGem == other.ColoredGem
-				&& string.Equals(Theme, other.Theme) && TextColorHash == other.TextColorHash && Created == other.Created;
+				&& string.Equals(Theme, other.Theme) && TextColorHash == other.TextColorHash && Created == other.Created && ArtAssetPath == other.ArtAssetPath;
 
 		public override int GetHashCode()
 		{
@@ -575,6 +617,7 @@ namespace Hearthstone_Deck_Tracker.Hearthstone
 				hashCode = (hashCode * 397) ^ TextColorHash;
 				hashCode = (hashCode * 397) ^ Created.GetHashCode();
 				hashCode = (hashCode * 397) ^ BaconCard.GetHashCode();
+				hashCode = (hashCode * 397) ^ ArtAssetPath?.GetHashCode() ?? 0;
 				return hashCode;
 			}
 		}

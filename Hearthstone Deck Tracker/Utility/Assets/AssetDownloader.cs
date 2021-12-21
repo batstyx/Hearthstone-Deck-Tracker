@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Hearthstone_Deck_Tracker.Utility.Assets
@@ -193,32 +194,38 @@ namespace Hearthstone_Deck_Tracker.Utility.Assets
 		private async Task<bool> CleanupDownload(string filename, Task toAwait, string inProgressPath, string finalPath)
 		{
 			await toAwait;
-			_inProcessDownloads.Remove(filename);
-			if(toAwait.IsCompletedSuccessfully())
+			try
 			{
-				_succesfullyDownloadedImages.Add(filename);
-				try
+				if(toAwait.IsCompletedSuccessfully())
 				{
-					if(File.Exists(finalPath))
-						File.Delete(finalPath);
-					File.Move(inProgressPath, finalPath);
-					return true;
+					_succesfullyDownloadedImages.Add(filename);
+					try
+					{
+						if(File.Exists(finalPath))
+							File.Delete(finalPath);
+						File.Move(inProgressPath, finalPath);
+						return true;
+					}
+					catch(Exception e)
+					{
+						Log.Error($"Could not move {inProgressPath} to {finalPath}: {e.Message}");
+					}
 				}
-				catch(Exception e)
+				else
 				{
-					Log.Error($"Could not move {inProgressPath} to {finalPath}: {e.Message}");
+					try
+					{
+						File.Delete(inProgressPath);
+					}
+					catch(Exception e)
+					{
+						Log.Error($"Couldn't delete {filename} at path {inProgressPath}: {e.Message}");
+					}
 				}
 			}
-			else
+			finally
 			{
-				try
-				{
-					File.Delete(inProgressPath);
-				}
-				catch(Exception e)
-				{
-					Log.Error($"Couldn't delete {filename} at path {inProgressPath}: {e.Message}");
-				}
+				_inProcessDownloads.Remove(filename);
 			}
 			return false;
 		}

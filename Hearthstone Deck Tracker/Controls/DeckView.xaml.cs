@@ -10,18 +10,25 @@ using Hearthstone_Deck_Tracker.Utility;
 using Hearthstone_Deck_Tracker.Utility.Extensions;
 using static HearthDb.CardIds.Collectible;
 using static System.Windows.Visibility;
+using Hearthstone_Deck_Tracker.Controls.Overlay;
+using System.Threading.Tasks;
+using Hearthstone_Deck_Tracker.Utility.Assets;
 
 namespace Hearthstone_Deck_Tracker.Controls
 {
 	public partial class DeckView
 	{
 		private readonly string _allTags;
+		private readonly CardAssetViewModel _cardTileAsset = new(null, CardAssetType.Tile);
+		private readonly string? _headerBackgroundClass;
+		private readonly Deck _deck;
 
 		public DeckView(Deck deck, bool deckOnly = false)
 		{
 			InitializeComponent();
 			_allTags = deck.TagList.ToLowerInvariant().Replace("-", "");
 			ListViewPlayer.Update(deck.Cards.ToSortedCardList(), true);
+			_deck = deck;
 
 			if(deckOnly)
 			{
@@ -32,7 +39,7 @@ namespace Hearthstone_Deck_Tracker.Controls
 			}
 			else
 			{
-				DeckTitlePanel.Background = DeckHeaderBackground(deck.Class);
+				_headerBackgroundClass = deck.Class;
 				LblDeckTitle.Text = deck.Name;
 				LblDeckTag.Text = GetTagText(deck);
 				LblDeckFormat.Text = GetFormatText(deck);
@@ -42,14 +49,25 @@ namespace Hearthstone_Deck_Tracker.Controls
 			}
 		}
 
-		private ImageBrush DeckHeaderBackground(string? deckClass)
+		public async Task EnsureLoaded()
+		{
+			if(AssetDownloaders.cardTileDownloader == null)
+				return;
+			if(_headerBackgroundClass != null)
+				DeckTitlePanel.Background = await DeckHeaderBackground(_headerBackgroundClass);
+			while(_deck.Cards.Any(x => !x.HasLoadedBackground))
+				await Task.Delay(100);
+		}
+
+		private async Task<ImageBrush> DeckHeaderBackground(string? deckClass)
 		{
 			var heroId = ClassToID(deckClass);
 			var drawingGroup = new DrawingGroup();
 			var card = Database.GetCardFromId(heroId);
 			if(card == null)
 				return new ImageBrush();
-			var img = ImageCache.GetCardImage(card);
+			await _cardTileAsset.SetCard(card);
+			var img = new BitmapImage(new Uri(_cardTileAsset.AssetPath));
 			drawingGroup.Children.Add(new ImageDrawing(img, new Rect(54, 0, 130, 34)));
 			drawingGroup.Children.Add(new ImageDrawing(new BitmapImage(new Uri(
 				"Images/Themes/Bars/dark/fade.png", UriKind.Relative)), new Rect(0, 0, 183, 34)));
