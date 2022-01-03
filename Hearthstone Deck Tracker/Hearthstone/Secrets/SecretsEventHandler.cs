@@ -28,8 +28,6 @@ namespace Hearthstone_Deck_Tracker.Hearthstone.Secrets
 
 		public List<int> OpponentTookDamageDuringTurns = new List<int>();
 
-		public Dictionary<int, Dictionary<int, int>> EntityDamageDealtHistory = new Dictionary<int, Dictionary<int, int>>();
-
 		private List<Entity> _triggeredSecrets = new List<Entity>();
 
 		protected abstract IGame Game { get; }
@@ -276,7 +274,6 @@ namespace Hearthstone_Deck_Tracker.Hearthstone.Secrets
 
 		public void OnNewBlock()
 		{
-			EntityDamageDealtHistory.Clear();
 		}
 
 		public async void HandleEntityDamageAsync(Entity dealer, Entity target, int damage)
@@ -296,20 +293,10 @@ namespace Hearthstone_Deck_Tracker.Hearthstone.Secrets
 				{
 					if(dealer.IsMinion && dealer.IsControlledBy(Game.Player.Id))
 					{
-						if(!EntityDamageDealtHistory.TryGetValue(dealer.Id, out var history))
-						{
-							EntityDamageDealtHistory[dealer.Id] = new Dictionary<int, int>();
-						}
-						if(!EntityDamageDealtHistory[dealer.Id].TryGetValue(target.Id, out var targetHistory))
-						{
-							EntityDamageDealtHistory[dealer.Id][target.Id] = 0;
-						}
-						EntityDamageDealtHistory[dealer.Id][target.Id] += damage;
-						var damageDealt = EntityDamageDealtHistory[dealer.Id][target.Id];
+						//Await to check if the dealer is moved to the graveyard or otherwise destroyed.
 						await Game.GameTime.WaitForDuration(100);
-
 						//We check both heaolth and zone because sometimes after the await the dealer's health will revert to that of the original card.
-						if(damageDealt >= 3 && dealer.Health > 0 && (Zone)dealer.GetTag(GameTag.ZONE) != Zone.GRAVEYARD)
+						if(damage >= 3 && dealer.Health > 0 && (Zone)dealer.GetTag(GameTag.ZONE) != Zone.GRAVEYARD)
 							Exclude(Paladin.Reckoning);
 					}
 				}
