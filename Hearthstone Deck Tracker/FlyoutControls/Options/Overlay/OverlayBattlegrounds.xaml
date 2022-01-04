@@ -19,6 +19,10 @@
                   HorizontalAlignment="Left"
                   VerticalAlignment="Top" Checked="CheckboxShowBattlegroundsTurnCounter_Checked"
                   Unchecked="CheckboxShowBattlegroundsTurnCounter_Unchecked" Margin="10,5,0,0" />
+        <CheckBox x:Name="CheckboxShowBattlegroundsOpponentBoard" Content="{lex:Loc Options_Overlay_General_CheckBox_BattlegroundsOpponentBoard}"
+                  HorizontalAlignment="Left"
+                  VerticalAlignment="Top" Checked="CheckboxShowOpponentBoard_Checked"
+                  Unchecked="CheckboxShowOpponentBoard_Unchecked" Margin="10,5,0,0" />
         <GroupBox Header="{lex:LocTextUpper Options_Overlay_Battlegrounds_Label_BobsBuddy}" Margin="5,10,5,5">
             <StackPanel>
                 <TextBlock Name="TextBobsBuddyDisabled" Foreground="Yellow" Visibility="Collapsed" Margin="0,0,0,5"/>

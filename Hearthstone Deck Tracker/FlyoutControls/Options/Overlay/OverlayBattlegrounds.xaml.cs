@@ -31,6 +31,8 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.Options.Overlay
 
 			CheckboxRunCombatSimulations.IsChecked = Config.Instance.RunBobsBuddy;
 
+			CheckboxShowBattlegroundsOpponentBoard.IsChecked = Config.Instance.ShowLastKnownBattlegroundsOpponentBoard;
+
 			CheckboxShowResultsDuringCombat.IsChecked = Config.Instance.ShowBobsBuddyDuringCombat;
 			CheckboxShowResultsDuringCombat.IsEnabled = Config.Instance.RunBobsBuddy;
 
@@ -111,6 +113,22 @@ namespace Hearthstone_Deck_Tracker.FlyoutControls.Options.Overlay
 			SaveConfig(true);
 			if(Core.Game.IsBattlegroundsMatch)
 				Core.Overlay.TurnCounter.Visibility = Visibility.Collapsed;
+		}
+
+		private void CheckboxShowOpponentBoard_Checked(object sender, RoutedEventArgs e)
+		{
+			if(!_initialized)
+				return;
+			Config.Instance.ShowLastKnownBattlegroundsOpponentBoard = true;
+			SaveConfig(true);
+		}
+
+		private void CheckboxShowOpponentBoard_Unchecked(object sender, RoutedEventArgs e)
+		{
+			if(!_initialized)
+				return;
+			Config.Instance.ShowLastKnownBattlegroundsOpponentBoard = false;
+			SaveConfig(true);
 		}
 
 		private void CheckboxRunCombatSimulations_Checked(object sender, RoutedEventArgs e)

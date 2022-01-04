@@ -379,39 +379,42 @@ namespace Hearthstone_Deck_Tracker.Windows
 					fadeBgsMinionsList = true;
 					_leaderboardDeadForText.ForEach(x => x.Visibility = Visibility.Visible);
 					_leaderboardDeadForTurnText.ForEach(x => x.Visibility = Visibility.Visible);
-					var entity = _game.Entities.Values.Where(x => x.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE) == i + 1).FirstOrDefault();
-					if(entity == null)
+					if(Config.Instance.ShowLastKnownBattlegroundsOpponentBoard)
 					{
-						if(turn == 1 && i != 0)
+						var entity = _game.Entities.Values.Where(x => x.GetTag(GameTag.PLAYER_LEADERBOARD_PLACE) == i + 1).FirstOrDefault();
+						if(entity == null)
 						{
-							BattlegroundsBoard.Children.Clear();
-							NotFoughtOpponent.Visibility = Visibility.Visible;
-							HeroNoMinionsOnBoard.Visibility = Visibility.Collapsed;
-							showMinions = true;
+							if(turn == 1 && i != 0)
+							{
+								BattlegroundsBoard.Children.Clear();
+								NotFoughtOpponent.Visibility = Visibility.Visible;
+								HeroNoMinionsOnBoard.Visibility = Visibility.Collapsed;
+								showMinions = true;
+							}
+							break;
 						}
+						showMinions = true;
+						var state = _game.GetBattlegroundsBoardStateFor(entity.CardId);
+						BattlegroundsBoard.Children.Clear();
+						NotFoughtOpponent.Visibility = Visibility.Collapsed;
+						HeroNoMinionsOnBoard.Visibility = Visibility.Collapsed;
+						if(state == null)
+						{
+							BattlegroundsAge.Text = "";
+							if(entity.CardId != _game.Player.Board.FirstOrDefault(x => x.IsHero).CardId)
+								NotFoughtOpponent.Visibility = Visibility.Visible;
+							else
+								showMinions = false;
+							break;
+						}
+						foreach(var e in state.Entities)
+							BattlegroundsBoard.Children.Add(new BattlegroundsMinion(e));
+						if(!state.Entities.Any())
+							HeroNoMinionsOnBoard.Visibility = Visibility.Visible;
+						var age = _game.GetTurnNumber() - state.Turn;
+						BattlegroundsAge.Text = string.Format(LocUtil.Get("Overlay_Battlegrounds_Turns"), age);
 						break;
 					}
-					showMinions = true;
-					var state = _game.GetBattlegroundsBoardStateFor(entity.CardId);
-					BattlegroundsBoard.Children.Clear();
-					NotFoughtOpponent.Visibility = Visibility.Collapsed;
-					HeroNoMinionsOnBoard.Visibility = Visibility.Collapsed;
-					if(state == null)
-					{
-						BattlegroundsAge.Text = "";
-						if(entity.CardId != _game.Player.Board.FirstOrDefault(x => x.IsHero).CardId)
-							NotFoughtOpponent.Visibility = Visibility.Visible;
-						else
-							showMinions = false;
-						break;
-					}
-					foreach(var e in state.Entities)
-						BattlegroundsBoard.Children.Add(new BattlegroundsMinion(e));
-					if(!state.Entities.Any())
-						HeroNoMinionsOnBoard.Visibility = Visibility.Visible;
-					var age = _game.GetTurnNumber() - state.Turn;
-					BattlegroundsAge.Text = string.Format(LocUtil.Get("Overlay_Battlegrounds_Turns"), age);
-					break;
 				}
 			}
 			if(showMinions)
